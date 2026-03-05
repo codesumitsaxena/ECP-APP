@@ -13,7 +13,7 @@ export default function CasesScreen() {
   const filtered = filter === "ALL" ? CLINICAL_CASES : CLINICAL_CASES.filter(c => c.tag === filter);
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: "52px 18px 0" }}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: "20px 18px 0" }}>
       <style>{`@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }`}</style>
       <h1 style={{ fontSize: 26, fontWeight: 900, color: "#0F172A", margin: "0 0 4px" }}>Clinical Cases</h1>
       <p style={{ fontSize: 13, color: "#64748B", margin: "0 0 20px" }}>

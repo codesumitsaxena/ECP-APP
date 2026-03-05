@@ -73,7 +73,7 @@ export default function TrainScreen() {
   if (active === "axis")      return <AxisTool          onBack={() => setActive(null)} />;
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: "52px 18px 0" }}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: "20px 18px 0" }}>
       <style>{`@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }`}</style>
       <h1 style={{ fontSize: 26, fontWeight: 900, color: "#0F172A", margin: "0 0 4px" }}>Train</h1>
       <p style={{ fontSize: 13, color: "#64748B", margin: "0 0 24px" }}>Interactive ECG Simulators</p>
@@ -174,7 +174,7 @@ function ECGRendererTool({ onBack }) {
   }
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: "52px 18px 0" }}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: "20px 18px 0" }}>
       <BackButton onBack={onBack} />
       <ScreenTitle Icon={Activity} color="#EFF6FF" accent="#3B82F6" title="ECG Renderer" />
 
@@ -237,7 +237,7 @@ function VectorSimTool({ onBack }) {
   ];
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: "52px 18px 0" }}>
+    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: "20px 18px 0" }}>
       <BackButton onBack={onBack} />
       <ScreenTitle Icon={Zap} color="#FFF7ED" accent="#F97316" title="Cardiac Vector Sim" />
 
@@ -311,7 +311,7 @@ function HeartRateTool({ onBack }) {
     : value * 6;
 
   return (
-    <div style={{ fontFamily:"'DM Sans',sans-serif", padding:"52px 18px 0" }}>
+    <div style={{ fontFamily:"'DM Sans',sans-serif", padding:"20px 18px 0" }}>
       <BackButton onBack={onBack} />
       <ScreenTitle Icon={Heart} color="#FFF1F2" accent="#F43F5E" title="Heart Rate Calculator" />
 
@@ -359,7 +359,7 @@ function AxisTool({ onBack }) {
   const qColor = { Normal: "#22C55E", RAD: "#EF4444", LAD: "#F59E0B" }[quadrant] || "#22C55E";
 
   return (
-    <div style={{ fontFamily:"'DM Sans',sans-serif", padding:"52px 18px 0" }}>
+    <div style={{ fontFamily:"'DM Sans',sans-serif", padding:"20px 18px 0" }}>
       <BackButton onBack={onBack} />
       <ScreenTitle Icon={Compass} color="#F0FDF4" accent="#22C55E" title="Axis Determination" />
 

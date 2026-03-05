@@ -13,14 +13,7 @@ export default function App() {
 
   if (!loggedIn) {
     return (
-      <div style={{
-        minHeight: "100vh",
-        maxWidth: 430,
-        width: "100%",
-        margin: "0 auto",
-        background: "#EEF2F8",
-        overflowX: "hidden",
-      }}>
+      <div className="app-container">
         <LoginScreen onLogin={() => setLoggedIn(true)} />
       </div>
     );
@@ -28,12 +21,12 @@ export default function App() {
 
   const renderScreen = () => {
     switch (activeTab) {
-      case "home":     return <HomeScreen setActiveTab={setActiveTab} onResumeModule={() => setActiveTab("learn")} />;
-      case "learn":    return <LearnScreen />;
-      case "train":    return <TrainScreen />;
-      case "cases":    return <CasesScreen />;
+      case "home": return <HomeScreen setActiveTab={setActiveTab} onResumeModule={() => setActiveTab("learn")} />;
+      case "learn": return <LearnScreen />;
+      case "train": return <TrainScreen />;
+      case "cases": return <CasesScreen />;
       case "settings": return <SettingsScreen onLogout={() => { setLoggedIn(false); setActiveTab("home"); }} />;
-      default:         return <HomeScreen setActiveTab={setActiveTab} />;
+      default: return <HomeScreen setActiveTab={setActiveTab} />;
     }
   };
 
@@ -41,13 +34,13 @@ export default function App() {
     <div style={{
       background: "#EEF2F8",
       minHeight: "100vh",
-      maxWidth: 430,
+      maxWidth: 390,
       width: "100%",
       margin: "0 auto",
       position: "relative",
       overflowX: "hidden",
+      fontSize: "14px",
     }}>
-     
       <div style={{ width: "100%", paddingBottom: 20 }}>
         {renderScreen()}
       </div>

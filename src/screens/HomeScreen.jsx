@@ -27,7 +27,7 @@ export default function HomeScreen({ setActiveTab, onResumeModule }) {
         .section-block { animation: fadeUp 0.45s ease both; }
       `}</style>
 
-      <div style={{ padding: "52px 18px 0" }}>
+      <div style={{ padding: "20px 18px 0" }}>
 
         {/* ── Header ── */}
         <div className="section-block" style={{
@@ -73,8 +73,8 @@ export default function HomeScreen({ setActiveTab, onResumeModule }) {
             </div>
             <div style={{ fontSize: 13, fontWeight: 700, color: "#22C55E", display: "flex", alignItems: "center", gap: 4 }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5">
-                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-                <polyline points="17 6 23 6 23 12"/>
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                <polyline points="17 6 23 6 23 12" />
               </svg>
               +{USER.weeklyGain}% this week
             </div>
