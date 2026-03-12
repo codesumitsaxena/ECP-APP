@@ -1,15 +1,11 @@
-// ─── LoginScreen ──────────────────────────────────────────────────────────────
-
 import { useState } from "react";
-import ECGBackground from "../components/ECGBackground.jsx";
+import { Activity, Mail, Lock as LockIcon, Loader2, ArrowRight } from "lucide-react";
 
 export default function LoginScreen({ onLogin }) {
   const [email, setEmail] = useState("medical@student.edu");
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [focusField, setFocusField] = useState(null);
 
   const handleLogin = () => {
     if (!email) { setError("Please enter your email."); return; }
@@ -18,172 +14,87 @@ export default function LoginScreen({ onLogin }) {
     setTimeout(() => { setLoading(false); onLogin(); }, 1400);
   };
 
-  const inputStyle = (field) => ({
-    width: "100%", padding: "10px 13px",
-    borderRadius: 11,
-    border: `1.8px solid ${focusField === field ? "#3B82F6" : "#E2E8F0"}`,
-    background: focusField === field ? "#F0F6FF" : "#F8FAFC",
-    fontSize: 11.5, color: "#0F172A", outline: "none",
-    boxSizing: "border-box",
-    transition: "border 0.2s, background 0.2s",
-    fontFamily: "'DM Sans', sans-serif",
-  });
-
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "linear-gradient(160deg,#EEF2F8 0%,#E8F0FE 50%,#F0F4FF 100%)",
-      display: "flex", alignItems: "center", justifyContent: "center",
-      fontFamily: "'DM Sans', sans-serif",
-      position: "relative", overflow: "hidden",
-      padding: "16px",
-    }}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap');
-        @keyframes cardIn { from { opacity:0; transform:translateY(32px) scale(0.97); } to { opacity:1; transform:translateY(0) scale(1); } }
-        @keyframes logoSpin { 0%,100% { transform:rotate(-3deg) scale(1); } 50% { transform:rotate(3deg) scale(1.04); } }
-        @keyframes pulse { 0%,100% { box-shadow:0 4px 20px rgba(59,130,246,0.3); } 50% { box-shadow:0 4px 32px rgba(59,130,246,0.55); } }
-        .login-btn:hover { transform:translateY(-1px) !important; }
-        .login-btn:active { transform:scale(0.97) !important; }
-      `}</style>
+    <div className="min-h-screen bg-[#EEF2F7] flex flex-col items-center justify-center p-6 relative overflow-hidden">
+      {/* Decorative Blobs */}
+      <div className="absolute top-[-10%] right-[-10%] w-64 h-64 bg-[#2563EB]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[-10%] w-64 h-64 bg-[#7C3AED]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <ECGBackground />
+      {/* Login Card */}
+      <div className="w-full max-w-[340px] bg-white rounded-[32px] p-8 shadow-2xl shadow-blue-900/10 border border-white relative z-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
+        
+        {/* Logo Section */}
+        <div className="flex flex-col items-center mb-10">
+          <div className="w-16 h-16 bg-[#2563EB] rounded-3xl flex items-center justify-center shadow-xl shadow-blue-200 mb-4 transform hover:scale-105 transition-transform duration-300">
+            <Activity size={36} className="text-white" strokeWidth={2.5} />
+          </div>
+          <h1 className="text-2xl font-black text-[#0F172A] tracking-tight">ECG Expert</h1>
+          <p className="text-xs text-[#64748B] font-medium mt-1">Medical Training & Simulation</p>
+        </div>
 
-      {/* Blobs */}
-      <div style={{ position:"absolute", top:"-64px", right:"-64px", width:208, height:208, borderRadius:"50%", background:"rgba(59,130,246,0.07)", pointerEvents:"none" }}/>
-      <div style={{ position:"absolute", bottom:"-48px", left:"-48px", width:160, height:160, borderRadius:"50%", background:"rgba(37,99,235,0.06)", pointerEvents:"none" }}/>
-
-      <div style={{
-        background: "rgba(255,255,255,0.92)",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
-        borderRadius: 22, padding: "32px 25px 25px",
-        width: "100%", maxWidth: 288,
-        boxShadow: "0 16px 48px rgba(59,130,246,0.13), 0 3px 12px rgba(0,0,0,0.05)",
-        border: "1.5px solid rgba(255,255,255,0.8)",
-        position: "relative", zIndex: 1,
-        animation: "cardIn 0.55s cubic-bezier(0.34,1.1,0.64,1) forwards",
-      }}>
-
-        {/* App Logo */}
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
-          <div style={{
-            width: 56, height: 56, borderRadius: 18,
-            background: "linear-gradient(135deg,#3B82F6,#1D4ED8)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            boxShadow: "0 5px 20px rgba(59,130,246,0.4)",
-            animation: "pulse 3s ease-in-out infinite",
-          }}>
-            <svg width="27" height="27" viewBox="0 0 34 34" fill="none">
-              <polyline
-                points="2,17 6,17 8,9 10,25 12,11 14,22 16,17 19,17 21,9 23,25 25,11 27,22 29,17 32,17"
-                stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" fill="none"
+        {/* Form */}
+        <div className="space-y-5">
+          <div>
+            <label className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest ml-1 mb-2 block">Email Address</label>
+            <div className="relative group">
+              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#94A3B8] group-focus-within:text-[#2563EB] transition-colors">
+                <Mail size={18} strokeWidth={2.5} />
+              </div>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email address"
+                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] focus:border-[#2563EB] focus:ring-4 focus:ring-[#2563EB]/5 px-11 py-3.5 rounded-2xl text-sm font-medium outline-none transition-all placeholder:text-[#94A3B8]"
               />
-            </svg>
+            </div>
           </div>
-        </div>
 
-        <h1 style={{ textAlign: "center", fontSize: 19, fontWeight: 900, color: "#0F172A", margin: "0 0 3px", letterSpacing: 1 }}>
-          TTOOLECG
-        </h1>
-        <p style={{ textAlign: "center", fontSize: 10.5, color: "#64748B", margin: "0 0 25px", fontWeight: 500 }}>
-          ECG Training &amp; Vector Theory
-        </p>
+          <div>
+            <label className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest ml-1 mb-2 block">Password</label>
+            <div className="relative group">
+              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#94A3B8] group-focus-within:text-[#2563EB] transition-colors">
+                <LockIcon size={18} strokeWidth={2.5} />
+              </div>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] focus:border-[#2563EB] focus:ring-4 focus:ring-[#2563EB]/5 px-11 py-3.5 rounded-2xl text-sm font-medium outline-none transition-all placeholder:text-[#94A3B8]"
+              />
+            </div>
+          </div>
 
-        {/* Email */}
-        <label style={{ fontSize: 9, fontWeight: 700, color: "#475569", letterSpacing: 0.8, display: "block", marginBottom: 5 }}>
-          EMAIL
-        </label>
-        <input
-          type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-          placeholder="medical@student.edu"
-          style={inputStyle("email")}
-          onFocus={() => setFocusField("email")}
-          onBlur={() => setFocusField(null)}
-        />
+          {error && (
+            <div className="bg-rose-50 border border-rose-100 rounded-xl p-3 text-rose-600 text-[11px] font-bold animate-in fade-in zoom-in-95 duration-200">
+              {error}
+            </div>
+          )}
 
-        {/* Password */}
-        <label style={{ fontSize: 9, fontWeight: 700, color: "#475569", letterSpacing: 0.8, display: "block", margin: "14px 0 5px" }}>
-          PASSWORD
-        </label>
-        <input
-          type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-          placeholder="••••••••"
-          style={inputStyle("password")}
-          onFocus={() => setFocusField("password")}
-          onBlur={() => setFocusField(null)}
-          onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-        />
-
-        {/* Remember */}
-        <div style={{ display: "flex", alignItems: "center", gap: 9, margin: "14px 0 22px" }}>
-          <div
-            onClick={() => setRemember(!remember)}
-            style={{
-              width: 14, height: 14, borderRadius: 5, border: `1.8px solid ${remember ? "#3B82F6" : "#CBD5E1"}`,
-              background: remember ? "#3B82F6" : "#fff", cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              transition: "all 0.2s", flexShrink: 0,
-            }}
+          <button
+            onClick={handleLogin}
+            disabled={loading}
+            className="w-full py-4 bg-[#2563EB] text-white rounded-2xl text-sm font-bold shadow-lg shadow-blue-200 hover:shadow-xl hover:opacity-95 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed group mt-2"
           >
-            {remember && (
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                <polyline points="2,6 5,9 10,3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+            {loading ? (
+              <Loader2 className="animate-spin" size={20} />
+            ) : (
+              <>
+                Enter Training
+                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" strokeWidth={2.5} />
+              </>
             )}
-          </div>
-          <span style={{ fontSize: 13, color: "#475569", cursor: "pointer" }} onClick={() => setRemember(!remember)}>
-            Remember me
-          </span>
+          </button>
         </div>
 
-        {error && (
-          <div style={{
-            background: "#FEF2F2", border: "1.5px solid #FECACA",
-            borderRadius: 8, padding: "8px 11px",
-            color: "#DC2626", fontSize: 10.5, fontWeight: 600, marginBottom: 11,
-          }}>
-            {error}
-          </div>
-        )}
-
-        {/* Login Button */}
-        <button
-          className="login-btn"
-          onClick={handleLogin}
-          disabled={loading}
-          style={{
-            width: "100%", padding: "12px",
-            borderRadius: 13, border: "none",
-            background: loading
-              ? "linear-gradient(135deg,#93C5FD,#60A5FA)"
-              : "linear-gradient(135deg,#3B82F6,#1D4ED8)",
-            color: "#fff", fontSize: 12, fontWeight: 800,
-            cursor: loading ? "not-allowed" : "pointer",
-            boxShadow: "0 3px 14px rgba(59,130,246,0.38)",
-            transition: "all 0.2s",
-            letterSpacing: 0.4,
-            display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
-          }}
-        >
-          {loading ? (
-            <>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"
-                style={{ animation: "spin 0.8s linear infinite" }}>
-                <path d="M21 12a9 9 0 11-6.219-8.56"/>
-              </svg>
-              Entering...
-            </>
-          ) : "Enter Application"}
-        </button>
-
-        <p style={{ textAlign: "center", fontSize: 9, color: "#94A3B8", marginTop: 18, lineHeight: 1.7 }}>
-          For educational use only.<br />
-          Not for clinical diagnosis.
+        {/* Footer */}
+        <p className="text-center text-[10px] text-[#94A3B8] font-medium leading-relaxed mt-10">
+          Professional Tool for Educational Use<br />
+          Licensed to Dr. T. Rajini Samuel
         </p>
       </div>
-
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
 }

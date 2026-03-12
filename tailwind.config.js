@@ -8,6 +8,9 @@ module.exports = {
       fontSize: {
         base: ['0.8125rem', '1.5'],
       },
+      fontFamily: {
+        sans: ['Plus Jakarta Sans', 'sans-serif'],
+      },
     },
   },
   plugins: [],

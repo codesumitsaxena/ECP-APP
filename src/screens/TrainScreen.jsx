@@ -1,157 +1,82 @@
-// ─── TrainScreen ──────────────────────────────────────────────────────────────
-
 import { useState } from "react";
 import {
-  Activity,       // ECG Renderer
-  Zap,            // Cardiac Vector Sim
-  Heart,          // Heart Rate Calculator
-  Compass,        // Axis Determination
-  FlipHorizontal, // Lead Reversal Sim
-  LayoutGrid,     // Chest Lead Placement
+  Activity,
+  Zap,
+  Heart,
+  Compass,
+  FlipHorizontal,
+  LayoutGrid,
   ArrowLeft,
   ChevronRight,
 } from "lucide-react";
 
-// ── TRAIN_TOOLS data (inline, replacing TRAIN_TOOLS from appData.js) ──────────
-const TRAIN_TOOLS = [
-  {
-    id: "ecg",
-    title: "ECG Renderer",
-    sub: "Interactive grid with P, QRS, T waves",
-    Icon: Activity,
-    color: "#EFF6FF",
-    accent: "#3B82F6",
-  },
-  {
-    id: "vector",
-    title: "Cardiac Vector Sim",
-    sub: "Hex-axial model with dot product",
-    Icon: Zap,
-    color: "#FFF7ED",
-    accent: "#F97316",
-  },
-  {
-    id: "heartrate",
-    title: "Heart Rate Calculator",
-    sub: "R-R interval method",
-    Icon: Heart,
-    color: "#FFF1F2",
-    accent: "#F43F5E",
-  },
-  {
-    id: "axis",
-    title: "Axis Determination",
-    sub: "Tano formula, four-quadrant",
-    Icon: Compass,
-    color: "#F0FDF4",
-    accent: "#22C55E",
-  },
-  {
-    id: "reversal",
-    title: "Lead Reversal Sim",
-    sub: "All 6 reversal combinations",
-    Icon: FlipHorizontal,
-    color: "#EFF6FF",
-    accent: "#6366F1",
-  },
-  {
-    id: "chest",
-    title: "Chest Lead Placement",
-    sub: "Drag-and-drop electrodes",
-    Icon: LayoutGrid,
-    color: "#FDF4FF",
-    accent: "#A855F7",
-  },
-];
-
-export default function TrainScreen() {
-  const [active, setActive] = useState(null);
-
-  if (active === "ecg")       return <ECGRendererTool   onBack={() => setActive(null)} />;
-  if (active === "vector")    return <VectorSimTool     onBack={() => setActive(null)} />;
-  if (active === "heartrate") return <HeartRateTool     onBack={() => setActive(null)} />;
-  if (active === "axis")      return <AxisTool          onBack={() => setActive(null)} />;
-
+function BackButton({ onBack }) {
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: "16px 14px 0" }}>
-      <style>{`@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }`}</style>
-      <h1 style={{ fontSize: 21, fontWeight: 900, color: "#0F172A", margin: "0 0 3px" }}>Train</h1>
-      <p style={{ fontSize: 10.5, color: "#64748B", margin: "0 0 20px" }}>Interactive ECG Simulators</p>
+    <button
+      onClick={onBack}
+      className="flex items-center gap-2 text-[#2563EB] text-sm font-semibold mb-5 group"
+    >
+      <ArrowLeft size={18} className="transition-transform group-hover:-translate-x-1" strokeWidth={2.5} />
+      Back
+    </button>
+  );
+}
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-        {TRAIN_TOOLS.map((tool, i) => (
-          <div
-            key={tool.id}
-            onClick={() => setActive(tool.id)}
-            style={{
-              background: "#fff", borderRadius: 18, padding: "16px 13px",
-              border: "1.5px solid #E2E8F0", cursor: "pointer",
-              transition: "transform 0.18s, box-shadow 0.18s",
-              animation: `fadeUp 0.4s ease ${i * 60}ms both`,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-3px)";
-              e.currentTarget.style.boxShadow = `0 8px 24px ${tool.accent}22`;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "";
-              e.currentTarget.style.boxShadow = "";
-            }}
-          >
-            {/* Icon box — lucide icon instead of emoji */}
-            <div style={{
-              width: 38, height: 38, borderRadius: 13,
-              background: tool.color,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              marginBottom: 11,
-              color: tool.accent,
-            }}>
-              <tool.Icon size={20} strokeWidth={2} />
-            </div>
-
-            <div style={{ fontSize: 11.5, fontWeight: 800, color: "#0F172A", marginBottom: 3 }}>{tool.title}</div>
-            <div style={{ fontSize: 9, color: "#94A3B8", lineHeight: 1.4 }}>{tool.sub}</div>
-            <div style={{
-              marginTop: 10, color: tool.accent, fontSize: 9, fontWeight: 700,
-              display: "flex", alignItems: "center", gap: 2,
-            }}>
-              Launch <ChevronRight size={11} strokeWidth={3} />
-            </div>
-          </div>
-        ))}
+function ScreenTitle({ Icon, color, accent, title, sub }) {
+  return (
+    <div className="flex items-center gap-4 mb-6">
+      <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-white" style={{ background: color, color: accent }}>
+        <Icon size={24} strokeWidth={2.5} />
+      </div>
+      <div>
+        <h2 className="text-xl font-bold text-[#0F172A] leading-tight">{title}</h2>
+        {sub && <p className="text-xs text-[#64748B] font-medium">{sub}</p>}
       </div>
     </div>
   );
 }
 
-// ─── Shared helpers ───────────────────────────────────────────────────────────
-function BackButton({ onBack }) {
-  return (
-    <button
-      onClick={onBack}
-      style={{
-        background: "none", border: "none", cursor: "pointer",
-        color: "#3B82F6", fontSize: 11, fontWeight: 700,
-        padding: 0, marginBottom: 13,
-        display: "flex", alignItems: "center", gap: 5,
-      }}
-    >
-      <ArrowLeft size={12} strokeWidth={2.5} /> Back
-    </button>
-  );
-}
+// ── TRAIN_TOOLS data ─────────────────────────────────────────────────────────
+const TRAIN_TOOLS = [
+  { id: "ecg", title: "ECG Renderer", sub: "Interactive waves", Icon: Activity, color: "#EEF2F7", accent: "#2563EB" },
+  { id: "vector", title: "Vector Sim", sub: "Hex-axial model", Icon: Zap, color: "#EEF2F7", accent: "#2563EB" },
+  { id: "heartrate", title: "Heart Rate", sub: "Calculation formulas", Icon: Heart, color: "#EEF2F7", accent: "#2563EB" },
+  { id: "axis", title: "Axis Tool", sub: "Quadrants & angles", Icon: Compass, color: "#EEF2F7", accent: "#2563EB" },
+  { id: "reversal", title: "Lead Reversal", sub: "Electrode swaps", Icon: FlipHorizontal, color: "#EEF2F7", accent: "#2563EB" },
+  { id: "chest", title: "Chest Leads", sub: "V1-V6 placement", Icon: LayoutGrid, color: "#EEF2F7", accent: "#2563EB" },
+];
 
-function ScreenTitle({ Icon, color, accent, title }) {
+export default function TrainScreen() {
+  const [active, setActive] = useState(null);
+
+  if (active === "ecg") return <ECGRendererTool onBack={() => setActive(null)} />;
+  if (active === "vector") return <VectorSimTool onBack={() => setActive(null)} />;
+  if (active === "heartrate") return <HeartRateTool onBack={() => setActive(null)} />;
+  if (active === "axis") return <AxisTool onBack={() => setActive(null)} />;
+
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
-      <div style={{
-        width: 30, height: 30, borderRadius: 10,
-        background: color, color: accent,
-        display: "flex", alignItems: "center", justifyContent: "center",
-      }}>
-        <Icon size={16} strokeWidth={2} />
+    <div className="min-h-screen bg-[#EEF2F7] px-4 pt-5 pb-0">
+      <h1 className="text-2xl font-bold text-[#0F172A]">Train</h1>
+      <p className="text-sm text-[#64748B] mb-6">Interactive ECG Simulators</p>
+
+      <div className="grid grid-cols-2 gap-3 mb-0">
+        {TRAIN_TOOLS.map((tool) => (
+          <div
+            key={tool.id}
+            onClick={() => setActive(tool.id)}
+            className="bg-white rounded-2xl p-4 border border-[#E2E8F0] shadow-sm flex flex-col items-center text-center cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-xl active:scale-95"
+          >
+            <div className="w-12 h-12 rounded-2xl mb-3 flex items-center justify-center shrink-0 border border-white shadow-sm bg-[#EEF2F7] text-[#2563EB]">
+              <tool.Icon size={24} strokeWidth={2.5} />
+            </div>
+            <div className="text-sm font-semibold text-[#0F172A] leading-tight">{tool.title}</div>
+            <div className="text-[10px] text-[#94A3B8] leading-tight mt-1">{tool.sub}</div>
+            <div className="mt-3 text-[10px] font-bold flex items-center gap-1 text-[#2563EB]">
+              Launch <ChevronRight size={10} strokeWidth={3} />
+            </div>
+          </div>
+        ))}
       </div>
-      <h2 style={{ fontSize: 17.5, fontWeight: 900, color: "#0F172A", margin: 0 }}>{title}</h2>
     </div>
   );
 }
@@ -174,45 +99,37 @@ function ECGRendererTool({ onBack }) {
   }
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: "16px 14px 0" }}>
+    <div className="min-h-screen bg-[#EEF2F7] px-4 pt-5 pb-0">
       <BackButton onBack={onBack} />
-      <ScreenTitle Icon={Activity} color="#EFF6FF" accent="#3B82F6" title="ECG Renderer" />
+      <ScreenTitle Icon={Activity} color="#EEF2F7" accent="#2563EB" title="ECG Renderer" sub="Adjust amplitude and paper speed" />
 
-      <div style={{ background: "#fff", borderRadius: 16, overflow: "hidden", border: "1.5px solid #E2E8F0", marginBottom: 16 }}>
-        <svg width="100%" height="120" viewBox="0 0 300 120" preserveAspectRatio="none">
-          <rect width="300" height="120" fill="#FFF9F0"/>
-          {Array.from({length: 30}).map((_, i) => (
-            <line key={`v${i}`} x1={i*10} y1="0" x2={i*10} y2="120" stroke="#FBBF24" strokeWidth={i%5===0?0.8:0.4}/>
+      <div className="bg-white rounded-2xl overflow-hidden border border-[#E2E8F0] shadow-sm mb-5">
+        <svg width="100%" height="160" viewBox="0 0 300 120" preserveAspectRatio="none" className="block bg-[#FFF9F2]">
+          {Array.from({ length: 31 }).map((_, i) => (
+            <line key={`v${i}`} x1={i * 10} y1="0" x2={i * 10} y2="120" stroke="#FBBF24" strokeWidth={i % 5 === 0 ? 0.6 : 0.3} />
           ))}
-          {Array.from({length: 12}).map((_, i) => (
-            <line key={`h${i}`} x1="0" y1={i*10} x2="300" y2={i*10} stroke="#FBBF24" strokeWidth={i%5===0?0.8:0.4}/>
+          {Array.from({ length: 13 }).map((_, i) => (
+            <line key={`h${i}`} x1="0" y1={i * 10} x2="300" y2={i * 10} stroke="#FBBF24" strokeWidth={i % 5 === 0 ? 0.6 : 0.3} />
           ))}
-          <polyline fill="none" stroke="#1D4ED8" strokeWidth="1.8" strokeLinecap="round"
-            points={points.join(" ")}/>
+          <polyline fill="none" stroke="#2563EB" strokeWidth="2" strokeLinecap="round" points={points.join(" ")} />
         </svg>
       </div>
 
-      <div style={{ background: "#fff", borderRadius: 16, padding: "14px", border: "1.5px solid #E2E8F0", marginBottom: 13 }}>
-        <div style={{ marginBottom: 13 }}>
-          <label style={{ fontSize: 10, fontWeight: 700, color: "#475569", display:"flex", justifyContent:"space-between" }}>
-            AMPLITUDE (mV) <span style={{ color: "#3B82F6" }}>{(amplitude / 50).toFixed(1)} mV</span>
-          </label>
-          <input type="range" min="10" max="100" value={amplitude} onChange={e => setAmplitude(+e.target.value)}
-            style={{ width: "100%", marginTop: 6, accentColor: "#3B82F6" }}/>
+      <div className="bg-white rounded-2xl p-4 border border-[#E2E8F0] shadow-sm mb-0">
+        <div className="mb-6">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">AMPLITUDE (mV)</span>
+            <span className="text-sm font-bold text-[#2563EB]">{(amplitude / 50).toFixed(1)} mV</span>
+          </div>
+          <input type="range" min="10" max="100" value={amplitude} onChange={e => setAmplitude(+e.target.value)} className="w-full h-1.5 bg-[#EEF2F7] rounded-full appearance-none accent-[#2563EB] cursor-pointer" />
         </div>
         <div>
-          <label style={{ fontSize: 10, fontWeight: 700, color: "#475569", display:"flex", justifyContent:"space-between" }}>
-            PAPER SPEED <span style={{ color: "#3B82F6" }}>{speed} mm/s</span>
-          </label>
-          <div style={{ display:"flex", gap:6, marginTop:6 }}>
+          <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block mb-2">PAPER SPEED</span>
+          <div className="grid grid-cols-3 gap-2">
             {[12.5, 25, 50].map(s => (
-              <button key={s} onClick={() => setSpeed(s)} style={{
-                flex:1, padding:"6px", borderRadius:8,
-                border: speed===s ? "2px solid #3B82F6" : "1.5px solid #E2E8F0",
-                background: speed===s ? "#EFF6FF" : "#F8FAFC",
-                color: speed===s ? "#3B82F6" : "#475569",
-                fontSize: 10, fontWeight: 700, cursor: "pointer",
-              }}>{s}</button>
+              <button key={s} onClick={() => setSpeed(s)} className={`py-2 rounded-xl text-xs font-bold border transition-all ${speed === s ? "bg-[#2563EB] text-white shadow-sm" : "bg-white border-[#E2E8F0] text-[#64748B]"}`}>
+                {s} <span className="text-[8px] opacity-70 ml-0.5">mm/s</span>
+              </button>
             ))}
           </div>
         </div>
@@ -231,19 +148,18 @@ function VectorSimTool({ onBack }) {
   const vy = cy - Math.sin(rad) * r * magnitude;
 
   const leads = [
-    { name: "Lead I", angle: 0 }, { name: "Lead II", angle: 60 },
-    { name: "Lead III", angle: 120 }, { name: "aVR", angle: -150 },
-    { name: "aVL", angle: -30 }, { name: "aVF", angle: 90 },
+    { name: "Lead I", angle: 0 }, { name: "Lead II", angle: 60 }, { name: "Lead III", angle: 120 },
+    { name: "aVR", angle: -150 }, { name: "aVL", angle: -30 }, { name: "aVF", angle: 90 },
   ];
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: "16px 14px 0" }}>
+    <div className="min-h-screen bg-[#EEF2F7] px-4 pt-5 pb-0">
       <BackButton onBack={onBack} />
-      <ScreenTitle Icon={Zap} color="#FFF7ED" accent="#F97316" title="Cardiac Vector Sim" />
+      <ScreenTitle Icon={Zap} color="#EEF2F7" accent="#2563EB" title="Vector Sim" sub="Hex-axial reference system" />
 
-      <div style={{ background:"#fff", borderRadius:16, border:"1.5px solid #E2E8F0", overflow:"hidden", marginBottom:13 }}>
-        <svg width="100%" viewBox="0 0 260 260" style={{ display:"block" }}>
-          <circle cx={cx} cy={cy} r={r} fill="none" stroke="#EFF6FF" strokeWidth="1"/>
+      <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-md overflow-hidden mb-5">
+        <svg width="100%" viewBox="0 0 260 260" className="block p-4 bg-white">
+          <circle cx={cx} cy={cy} r={r} fill="none" stroke="#F1F5F9" strokeWidth="2" strokeDasharray="4 4" />
           {leads.map(l => {
             const lr = (l.angle * Math.PI) / 180;
             const x2 = cx + Math.cos(lr) * r;
@@ -252,47 +168,45 @@ function VectorSimTool({ onBack }) {
             const y1 = cy + Math.sin(lr) * r;
             return (
               <g key={l.name}>
-                <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#CBD5E1" strokeWidth="1" strokeDasharray="4 3"/>
-                <text x={x2 + (x2-cx)*0.12} y={y2 + (y2-cy)*0.12 + 4}
-                  fontSize="9" fill="#64748B" textAnchor="middle" fontWeight="700">{l.name}</text>
+                <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#E2E8F0" strokeWidth="1" strokeDasharray="4 2" />
+                <text x={x2 + (x2 - cx) * 0.15} y={y2 + (y2 - cy) * 0.15 + 3} className="text-[10px] fill-[#94A3B8] font-bold" textAnchor="middle">{l.name}</text>
               </g>
             );
           })}
-          <line x1={cx} y1={cy} x2={vx} y2={vy} stroke="#3B82F6" strokeWidth="3" strokeLinecap="round"/>
-          <circle cx={vx} cy={vy} r="5" fill="#3B82F6"/>
-          <circle cx={cx} cy={cy} r="3" fill="#0F172A"/>
-          <text x={cx} y={cy - r - 10} fontSize="10" fill="#3B82F6" textAnchor="middle" fontWeight="800">
+          <line x1={cx} y1={cy} x2={vx} y2={vy} stroke="#2563EB" strokeWidth="4" strokeLinecap="round" className="drop-shadow-sm" />
+          <circle cx={vx} cy={vy} r="6" fill="#2563EB" className="drop-shadow-md" />
+          <circle cx={cx} cy={cy} r="4" fill="#0F172A" />
+          <text x={cx} y={cy - r - 15} textAnchor="middle" className="text-sm font-bold fill-[#2563EB]">
             {angle}° / {magnitude.toFixed(1)} mV
           </text>
         </svg>
       </div>
 
-      <div style={{ background:"#fff", borderRadius:16, padding:"14px", border:"1.5px solid #E2E8F0", marginBottom:13 }}>
-        <div style={{ marginBottom:11 }}>
-          <label style={{ fontSize:10, fontWeight:700, color:"#475569", display:"flex", justifyContent:"space-between" }}>
-            ANGLE <span style={{ color:"#3B82F6" }}>{angle}°</span>
-          </label>
-          <input type="range" min="-180" max="180" value={angle} onChange={e => setAngle(+e.target.value)}
-            style={{ width:"100%", marginTop:6, accentColor:"#3B82F6" }}/>
+      <div className="bg-white rounded-2xl p-4 border border-[#E2E8F0] shadow-sm mb-5 space-y-5">
+        <div>
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">ANGLE</span>
+            <span className="text-sm font-bold text-[#2563EB]">{angle}°</span>
+          </div>
+          <input type="range" min="-180" max="180" value={angle} onChange={e => setAngle(+e.target.value)} className="w-full h-1.5 bg-[#EEF2F7] rounded-full appearance-none accent-[#2563EB] cursor-pointer" />
         </div>
         <div>
-          <label style={{ fontSize:10, fontWeight:700, color:"#475569", display:"flex", justifyContent:"space-between" }}>
-            MAGNITUDE <span style={{ color:"#3B82F6" }}>{magnitude.toFixed(1)} mV</span>
-          </label>
-          <input type="range" min="0.1" max="2" step="0.1" value={magnitude} onChange={e => setMagnitude(+e.target.value)}
-            style={{ width:"100%", marginTop:6, accentColor:"#3B82F6" }}/>
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">MAGNITUDE</span>
+            <span className="text-sm font-bold text-[#2563EB]">{magnitude.toFixed(1)} mV</span>
+          </div>
+          <input type="range" min="0.1" max="2" step="0.1" value={magnitude} onChange={e => setMagnitude(+e.target.value)} className="w-full h-1.5 bg-[#EEF2F7] rounded-full appearance-none accent-[#2563EB] cursor-pointer" />
         </div>
       </div>
 
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:6 }}>
+      <div className="grid grid-cols-3 gap-2 mb-0">
         {leads.map(l => {
           const proj = Math.cos((angle - l.angle) * Math.PI / 180) * magnitude;
-          const pos = proj > 0;
           return (
-            <div key={l.name} style={{ background:"#F8FAFC", borderRadius:10, padding:"8px 10px", border:"1.5px solid #E2E8F0" }}>
-              <div style={{ fontSize:9, color:"#94A3B8", fontWeight:700 }}>{l.name}</div>
-              <div style={{ fontSize:13, fontWeight:900, color: pos ? "#3B82F6" : "#EF4444" }}>
-                {pos ? "+" : ""}{proj.toFixed(2)}
+            <div key={l.name} className="bg-white rounded-xl p-2 border border-[#E2E8F0] text-center">
+              <div className="text-[8px] text-[#94A3B8] font-bold mb-1 uppercase tracking-tight">{l.name}</div>
+              <div className={`text-xs font-bold ${proj >= 0 ? "text-[#10B981]" : "text-[#EF4444]"}`}>
+                {proj > 0 ? "+" : ""}{proj.toFixed(2)}
               </div>
             </div>
           );
@@ -306,44 +220,44 @@ function VectorSimTool({ onBack }) {
 function HeartRateTool({ onBack }) {
   const [method, setMethod] = useState("small");
   const [value, setValue] = useState(20);
-  const hr = method === "small" ? Math.round(1500 / value)
-    : method === "large" ? Math.round(300 / value)
-    : value * 6;
+  const hr = method === "small" ? Math.round(1500 / value) : method === "large" ? Math.round(300 / value) : value * 6;
 
   return (
-    <div style={{ fontFamily:"'DM Sans',sans-serif", padding:"16px 14px 0" }}>
+    <div className="min-h-screen bg-[#EEF2F7] px-4 pt-5 pb-0">
       <BackButton onBack={onBack} />
-      <ScreenTitle Icon={Heart} color="#FFF1F2" accent="#F43F5E" title="Heart Rate Calculator" />
+      <ScreenTitle Icon={Heart} color="#EEF2F7" accent="#2563EB" title="HR Calculator" sub="Formula-based ECG calculation" />
 
-      <div style={{ background:"linear-gradient(135deg,#3B82F6,#1D4ED8)", borderRadius:18, padding:"22px 19px", marginBottom:16, textAlign:"center", color:"#fff" }}>
-        <div style={{ display:"flex", justifyContent:"center", marginBottom:6 }}>
-          <Heart size={18} fill="#fff" strokeWidth={0} style={{ opacity:0.75 }}/>
-        </div>
-        <div style={{ fontSize:10.5, fontWeight:600, opacity:0.8, marginBottom:5 }}>CALCULATED HEART RATE</div>
-        <div style={{ fontSize:45, fontWeight:900, lineHeight:1 }}>{hr}</div>
-        <div style={{ fontSize:11, opacity:0.8 }}>beats per minute</div>
+      <div className="bg-[#2563EB] rounded-3xl p-6 mb-5 text-center text-white shadow-lg">
+        <div className="text-[10px] font-bold opacity-70 uppercase tracking-widest mb-1">Estimated Heart Rate</div>
+        <div className="text-6xl font-black">{hr}</div>
+        <div className="text-sm font-medium opacity-80 mt-1">Beats Per Minute</div>
       </div>
 
-      <div style={{ background:"#fff", borderRadius:16, padding:"16px", border:"1.5px solid #E2E8F0", marginBottom:13 }}>
-        <div style={{ fontSize:10, fontWeight:700, color:"#475569", marginBottom:8 }}>CALCULATION METHOD</div>
-        <div style={{ display:"flex", gap:6, marginBottom:13 }}>
-          {[["small","1500/small sq"],["large","300/large sq"],["count","Count × 6"]].map(([m, label]) => (
-            <button key={m} onClick={() => setMethod(m)} style={{
-              flex:1, padding:"6px 3px", borderRadius:8, fontSize:9, fontWeight:700, cursor:"pointer",
-              border: method===m ? "2px solid #3B82F6" : "1.5px solid #E2E8F0",
-              background: method===m ? "#EFF6FF" : "#F8FAFC",
-              color: method===m ? "#3B82F6" : "#64748B",
-            }}>{label}</button>
-          ))}
+      <div className="bg-white rounded-2xl p-4 border border-[#E2E8F0] shadow-sm mb-0 space-y-6">
+        <div>
+          <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider block mb-3">CALCULATION METHOD</span>
+          <div className="flex gap-2">
+            {[["small", "1500 ÷ n"], ["large", "300 ÷ n"], ["count", "n × 6"]].map(([m, label]) => (
+              <button key={m} onClick={() => setMethod(m)} className={`flex-1 py-2.5 rounded-xl text-xs font-bold border transition-all ${method === m ? "bg-[#2563EB] text-white shadow-sm" : "bg-white border-[#E2E8F0] text-[#64748B]"}`}>
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
-        <label style={{ fontSize:10, fontWeight:700, color:"#475569", display:"flex", justifyContent:"space-between" }}>
-          {method === "small" ? "SMALL SQUARES IN R-R" : method === "large" ? "LARGE SQUARES IN R-R" : "R-R COUNT IN 10s"}
-          <span style={{ color:"#3B82F6" }}>{value}</span>
-        </label>
-        <input type="range" min="3" max="50" value={value} onChange={e => setValue(+e.target.value)}
-          style={{ width:"100%", marginTop:6, accentColor:"#3B82F6" }}/>
-        <div style={{ marginTop:10, padding:"10px 11px", background:"#EFF6FF", borderRadius:10, fontSize:10.5, color:"#1D4ED8", fontWeight:700 }}>
-          Formula: {method === "small" ? `1500 ÷ ${value} = ${hr} bpm` : method === "large" ? `300 ÷ ${value} = ${hr} bpm` : `${value} × 6 = ${hr} bpm`}
+        <div>
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">
+              {method === "small" ? "SMALL SQUARES" : method === "large" ? "LARGE SQUARES" : "6-SECOND COUNT"}
+            </span>
+            <span className="text-sm font-bold text-[#2563EB]">{value}</span>
+          </div>
+          <input type="range" min="3" max="50" value={value} onChange={e => setValue(+e.target.value)} className="w-full h-1.5 bg-[#EEF2F7] rounded-full appearance-none accent-[#2563EB] cursor-pointer" />
+        </div>
+        <div className="bg-[#EEF2F7] p-3 rounded-xl border border-[#E2E8F0]">
+          <div className="text-[10px] font-bold text-[#2563EB] uppercase tracking-wider mb-1">Applied Formula</div>
+          <div className="text-sm font-bold text-[#0F172A]">
+            {method === "small" ? `1500 ÷ ${value} = ${hr} bpm` : method === "large" ? `300 ÷ ${value} = ${hr} bpm` : `${value} × 6 = ${hr} bpm`}
+          </div>
         </div>
       </div>
     </div>
@@ -356,62 +270,49 @@ function AxisTool({ onBack }) {
   const [aVF, setAVF] = useState(0.8);
   const angle = Math.round(Math.atan2(1.154 * aVF, leadI) * 180 / Math.PI);
   const quadrant = angle >= 0 && angle <= 90 ? "Normal" : angle > 90 ? "RAD" : angle < -30 ? "LAD" : "Normal";
-  const qColor = { Normal: "#22C55E", RAD: "#EF4444", LAD: "#F59E0B" }[quadrant] || "#22C55E";
+  const qColor = { Normal: "#10B981", RAD: "#EF4444", LAD: "#F59E0B" }[quadrant] || "#10B981";
 
   return (
-    <div style={{ fontFamily:"'DM Sans',sans-serif", padding:"16px 14px 0" }}>
+    <div className="min-h-screen bg-[#EEF2F7] px-4 pt-5 pb-0">
       <BackButton onBack={onBack} />
-      <ScreenTitle Icon={Compass} color="#F0FDF4" accent="#22C55E" title="Axis Determination" />
+      <ScreenTitle Icon={Compass} color="#EEF2F7" accent="#2563EB" title="Axis Tool" sub="Determine QRS axis in 2D" />
 
-      <div style={{ background:"#fff", borderRadius:18, border:"1.5px solid #E2E8F0", overflow:"hidden", marginBottom:13 }}>
-        <svg width="100%" viewBox="0 0 260 260" style={{ display:"block" }}>
-          <rect width="260" height="260" fill="#F8FAFC"/>
-          <line x1="130" y1="30" x2="130" y2="230" stroke="#CBD5E1" strokeWidth="1.5"/>
-          <line x1="30" y1="130" x2="230" y2="130" stroke="#CBD5E1" strokeWidth="1.5"/>
-          {[-90,-60,-30,0,30,60,90,120,150,-120,-150,-180].map(a => {
+      <div className="bg-white rounded-3xl border border-[#E2E8F0] shadow-md overflow-hidden mb-5">
+        <svg width="100%" viewBox="0 0 260 260" className="block bg-white">
+          <line x1="130" y1="30" x2="130" y2="230" stroke="#CBD5E1" strokeWidth="1.5" strokeDasharray="4 4" />
+          <line x1="30" y1="130" x2="230" y2="130" stroke="#CBD5E1" strokeWidth="1.5" strokeDasharray="4 4" />
+          {[-30, 0, 90, 120, 180].map(a => {
             const ar = a * Math.PI / 180;
-            const x2 = 130 + Math.cos(ar)*95;
-            const y2 = 130 - Math.sin(ar)*95;
-            return <line key={a} x1="130" y1="130" x2={x2} y2={y2} stroke="#E2E8F0" strokeWidth="1" strokeDasharray="3 3"/>;
+            return <line key={a} x1="130" y1="130" x2={130 + Math.cos(ar) * 90} y2={130 - Math.sin(ar) * 90} stroke="#E2E8F0" strokeWidth="1" />;
           })}
-          <line x1="130" y1="130"
-            x2={130 + Math.cos(angle * Math.PI / 180) * 90}
-            y2={130 - Math.sin(angle * Math.PI / 180) * 90}
-            stroke={qColor} strokeWidth="3" strokeLinecap="round"/>
-          <circle cx={130 + Math.cos(angle * Math.PI / 180) * 90} cy={130 - Math.sin(angle * Math.PI / 180) * 90}
-            r="5" fill={qColor}/>
-          <circle cx="130" cy="130" r="3" fill="#0F172A"/>
-          <text x="130" y="20" textAnchor="middle" fontSize="10" fill={qColor} fontWeight="900">
-            Axis: {angle}° — {quadrant}
+          <line x1="130" y1="130" x2={130 + Math.cos(angle * Math.PI / 180) * 95} y2={130 - Math.sin(angle * Math.PI / 180) * 95} stroke={qColor} strokeWidth="5" strokeLinecap="round" className="drop-shadow-lg transition-all duration-500 ease-out" />
+          <circle cx={130 + Math.cos(angle * Math.PI / 180) * 95} cy={130 - Math.sin(angle * Math.PI / 180) * 95} r="7" fill={qColor} className="drop-shadow-lg" />
+          <circle cx="130" cy="130" r="4" fill="#0F172A" />
+          <text x="130" y="250" textAnchor="middle" className="text-base font-black uppercase tracking-widest" style={{ fill: qColor }}>
+            {quadrant} Axis ({angle}°)
           </text>
         </svg>
       </div>
 
-      <div style={{ background:"#fff", borderRadius:16, padding:"14px", border:"1.5px solid #E2E8F0", marginBottom:13 }}>
-        <div style={{ marginBottom:11 }}>
-          <label style={{ fontSize:10, fontWeight:700, color:"#475569", display:"flex", justifyContent:"space-between" }}>
-            LEAD I VOLTAGE <span style={{ color:"#3B82F6" }}>{leadI.toFixed(1)} mV</span>
-          </label>
-          <input type="range" min="-2" max="2" step="0.1" value={leadI} onChange={e => setLeadI(+e.target.value)}
-            style={{ width:"100%", marginTop:6, accentColor:"#3B82F6" }}/>
+      <div className="bg-white rounded-2xl p-5 border border-[#E2E8F0] shadow-sm mb-0 space-y-6">
+        <div>
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">LEAD I (mV)</span>
+            <span className="text-sm font-bold text-[#2563EB]">{leadI.toFixed(2)}</span>
+          </div>
+          <input type="range" min="-2" max="2" step="0.01" value={leadI} onChange={e => setLeadI(+e.target.value)} className="w-full h-1.5 bg-[#EEF2F7] rounded-full appearance-none accent-[#2563EB] cursor-pointer" />
         </div>
         <div>
-          <label style={{ fontSize:10, fontWeight:700, color:"#475569", display:"flex", justifyContent:"space-between" }}>
-            aVF VOLTAGE <span style={{ color:"#3B82F6" }}>{aVF.toFixed(1)} mV</span>
-          </label>
-          <input type="range" min="-2" max="2" step="0.1" value={aVF} onChange={e => setAVF(+e.target.value)}
-            style={{ width:"100%", marginTop:6, accentColor:"#3B82F6" }}/>
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">aVF (mV)</span>
+            <span className="text-sm font-bold text-[#2563EB]">{aVF.toFixed(2)}</span>
+          </div>
+          <input type="range" min="-2" max="2" step="0.01" value={aVF} onChange={e => setAVF(+e.target.value)} className="w-full h-1.5 bg-[#EEF2F7] rounded-full appearance-none accent-[#2563EB] cursor-pointer" />
         </div>
-        <div style={{ marginTop:10, padding:"10px 11px", background:"#EFF6FF", borderRadius:10, fontSize:10.5, color:"#1D4ED8", fontWeight:600 }}>
-          tan α = (1.154 × {aVF.toFixed(1)}) ÷ {leadI.toFixed(1)} = {(1.154 * aVF / (leadI || 0.01)).toFixed(3)}
+        <div className="bg-[#EEF2F7] p-3 rounded-xl border border-[#E2E8F0] text-center">
+          <span className="text-[10px] font-bold text-[#2563EB] uppercase tracking-widest block mb-1">Calculation result</span>
+          <div className="text-sm font-bold text-[#0F172A]">tan α = (1.154 × {aVF.toFixed(1)}) / {leadI.toFixed(1)}</div>
         </div>
-      </div>
-
-      <div style={{ padding:"11px 14px", borderRadius:13, border:`2px solid ${qColor}`, background:`${qColor}15`,
-        display:"flex", alignItems:"center", gap:6 }}>
-        <Compass size={13} color={qColor} strokeWidth={2.5}/>
-        <span style={{ fontSize:11, fontWeight:800, color: qColor }}>{quadrant} Axis</span>
-        <span style={{ fontSize:10.5, color:"#64748B", marginLeft:3 }}>{angle}°</span>
       </div>
     </div>
   );

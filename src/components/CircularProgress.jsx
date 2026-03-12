@@ -1,6 +1,6 @@
 // ─── CircularProgress Component ──────────────────────────────────────────────
 
-export default function CircularProgress({ value, size = 72, strokeWidth = 5.5, color = "#3B82F6", trackColor = "#E2E8F0" }) {
+export default function CircularProgress({ value, size = 72, strokeWidth = 5.5, color = "#2563EB", trackColor = "#EFF6FF" }) {
   const r = (size - strokeWidth * 2) / 2;
   const cx = size / 2;
   const cy = size / 2;

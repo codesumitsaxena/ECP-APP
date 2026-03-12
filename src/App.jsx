@@ -31,17 +31,8 @@ export default function App() {
   };
 
   return (
-    <div style={{
-      background: "#EEF2F8",
-      minHeight: "100vh",
-      maxWidth: 312,
-      width: "100%",
-      margin: "0 auto",
-      position: "relative",
-      overflowX: "hidden",
-      fontSize: "11px",
-    }}>
-      <div style={{ width: "100%", paddingBottom: 20 }}>
+    <div className="max-w-sm mx-auto min-h-screen bg-[#EEF2F7] relative overflow-x-hidden">
+      <div className="w-full pb-20">
         {renderScreen()}
       </div>
       <BottomNav active={activeTab} setActive={setActiveTab} />

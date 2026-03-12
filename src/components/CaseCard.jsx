@@ -4,70 +4,39 @@ export default function CaseCard({ caseData, onClick }) {
   return (
     <div
       onClick={onClick}
-      style={{
-        background: "#fff",
-        borderRadius: 18,
-        overflow: "hidden",
-        border: "1.5px solid #E2E8F0",
-        boxShadow: "0 1.5px 12px rgba(239,68,68,0.07)",
-        cursor: "pointer",
-        transition: "transform 0.18s, box-shadow 0.18s",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translateY(-2px)";
-        e.currentTarget.style.boxShadow = "0 6px 22px rgba(239,68,68,0.12)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "";
-        e.currentTarget.style.boxShadow = "0 1.5px 12px rgba(239,68,68,0.07)";
-      }}
+      className="bg-white rounded-2xl overflow-hidden border border-[#E2E8F0] shadow-sm cursor-pointer transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
     >
       {/* Header */}
-      <div style={{ padding: "14px 14px 0", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+      <div className="p-4 flex justify-between items-start">
         <div>
-          <div style={{ fontSize: 13, fontWeight: 800, color: "#0F172A" }}>{caseData.title}</div>
-          <div style={{ fontSize: 10, color: "#94A3B8", marginTop: 2 }}>{caseData.sub}</div>
+          <div className="text-sm font-bold text-[#0F172A] leading-tight">{caseData.title}</div>
+          <div className="text-[10px] text-[#94A3B8] mt-1 font-medium">{caseData.sub}</div>
         </div>
-        <span style={{
-          background: caseData.tagBg,
-          color: caseData.tagColor,
-          fontSize: 9, fontWeight: 800,
-          padding: "4px 9px", borderRadius: 16, letterSpacing: 0.5,
-          whiteSpace: "nowrap", marginLeft: 8,
-        }}>
+        <span 
+          className="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0 ml-2"
+          style={{ background: caseData.tagBg, color: caseData.tagColor }}
+        >
           {caseData.tag}
         </span>
       </div>
 
-      {/* ECG Strip */}
-      <div style={{ marginTop: 10 }}>
+      {/* ECG Component */}
+      <div className="bg-[#FFF9F2] border-y border-[#E2E8F0]/50">
         <MiniECG />
       </div>
 
       {/* Footer */}
-      <div style={{
-        display: "flex", justifyContent: "space-between", alignItems: "center",
-        padding: "10px 14px 13px",
-      }}>
-        <span style={{
-          fontSize: 11, fontWeight: 700, color: "#475569",
-          display: "flex", alignItems: "center", gap: 5,
-        }}>
-          <span style={{
-            width: 6, height: 6, borderRadius: "50%",
-            background: caseData.tagColor, display: "inline-block",
-          }}/>
-          Angle: {caseData.angle}
-        </span>
-        <span style={{
-          color: "#3B82F6", fontSize: 11, fontWeight: 700,
-          display: "flex", alignItems: "center", gap: 2,
-        }}>
-          View Case
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2.5">
+      <div className="px-4 py-3 flex justify-between items-center bg-[#F8FAFC]">
+        <div className="flex items-center gap-2">
+          <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: caseData.tagColor }} />
+          <span className="text-[11px] font-bold text-[#64748B]">Angle: {caseData.angle}</span>
+        </div>
+        <div className="flex items-center gap-1 text-[#2563EB] text-[11px] font-bold">
+          Analyze Case
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
             <polyline points="9 18 15 12 9 6"/>
           </svg>
-        </span>
+        </div>
       </div>
     </div>
   );

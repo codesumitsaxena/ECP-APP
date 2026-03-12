@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import MiniECG from "./MiniECG.jsx";
 
@@ -10,97 +9,69 @@ export default function CaseModal({ caseData, onClose, onStart }) {
 
   return (
     <div
-      style={{
-        position: "fixed", inset: 0,
-        background: "rgba(15,23,42,0.55)",
-        backdropFilter: "blur(4px)",
-        display: "flex", alignItems: "flex-end",
-        zIndex: 300,
-        animation: "fadeIn 0.2s ease",
-      }}
+      className="fixed inset-0 z-[200] flex items-end justify-center bg-[#0F172A]/40 backdrop-blur-sm"
       onClick={onClose}
     >
       <style>{`
-        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
         @keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
       `}</style>
 
       <div
-        style={{
-          background: "#fff",
-          borderRadius: "22px 22px 0 0",
-          padding: "0 0 28px",
-          width: "100%",
-          maxWidth: 344,
-          margin: "0 auto",
-          animation: "slideUp 0.35s cubic-bezier(0.34,1.1,0.64,1)",
-          maxHeight: "88vh",
-          overflowY: "auto",
-        }}
+        className="w-full max-w-sm bg-white rounded-t-3xl pt-2 pb-8 px-5 max-h-[90vh] overflow-y-auto"
+        style={{ animation: "slideUp 0.3s cubic-bezier(0.34, 1.1, 0.64, 1) both" }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drag handle */}
-        <div style={{ padding: "11px 0 0", display: "flex", justifyContent: "center" }}>
-          <div style={{ width: 32, height: 3, background: "#E2E8F0", borderRadius: 99 }}/>
-        </div>
+        <div className="w-12 h-1.5 bg-[#E2E8F0] rounded-full mx-auto my-3" />
 
         {/* Header */}
-        <div style={{ padding: "13px 18px 0", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-          <div style={{ flex: 1, marginRight: 10 }}>
-            <h3 style={{ fontSize: 16, fontWeight: 900, color: "#0F172A", margin: "0 0 3px" }}>
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex-1 mr-4">
+            <h3 className="text-lg font-bold text-[#0F172A] leading-tight mb-1">
               {caseData.title}
             </h3>
-            <p style={{ fontSize: 10.5, color: "#64748B", margin: 0 }}>{caseData.sub}</p>
+            <p className="text-xs text-[#64748B] font-medium">{caseData.sub}</p>
           </div>
-          <span style={{
-            background: caseData.tagBg, color: caseData.tagColor,
-            fontSize: 8.5, fontWeight: 800, padding: "4px 9px",
-            borderRadius: 16, letterSpacing: 0.5, flexShrink: 0,
-          }}>{caseData.tag}</span>
+          <span 
+            className="text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shrink-0"
+            style={{ background: caseData.tagBg, color: caseData.tagColor }}
+          >
+            {caseData.tag}
+          </span>
         </div>
 
-        {/* ECG */}
-        <div style={{ margin: "13px 18px 0" }}>
+        {/* ECG Preview */}
+        <div className="bg-[#FFF9F2] rounded-2xl border border-[#E2E8F0] overflow-hidden mb-5">
           <MiniECG />
         </div>
 
         {/* Description */}
-        <div style={{ margin: "13px 18px 0" }}>
-          <p style={{ fontSize: 10.5, color: "#475569", lineHeight: 1.6, margin: 0,
-            background: "#F8FAFC", borderRadius: 11, padding: "10px 11px",
-            border: "1.5px solid #E2E8F0" }}>
-            {caseData.description}
-          </p>
+        <div className="bg-[#EEF2F7] rounded-2xl p-4 text-xs leading-relaxed text-[#475569] border border-[#E2E8F0] mb-5">
+          {caseData.description}
         </div>
 
         {/* Findings Grid */}
-        <div style={{ margin: "11px 18px 0", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+        <div className="grid grid-cols-2 gap-3 mb-6">
           {caseData.findings.map(([k, v]) => (
-            <div key={k} style={{
-              background: "#F8FAFC", borderRadius: 11, padding: "10px 11px",
-              border: "1.5px solid #E2E8F0",
-            }}>
-              <div style={{ fontSize: 8.5, color: "#94A3B8", fontWeight: 600, letterSpacing: 0.5, marginBottom: 2 }}>{k.toUpperCase()}</div>
-              <div style={{ fontSize: 11.5, fontWeight: 800, color: "#0F172A" }}>{v}</div>
+            <div key={k} className="bg-[#F8FAFC] rounded-2xl p-3 border border-[#E2E8F0]">
+              <div className="text-[9px] text-[#94A3B8] font-bold uppercase tracking-wider mb-1">{k}</div>
+              <div className="text-sm font-bold text-[#0F172A]">{v}</div>
             </div>
           ))}
         </div>
 
-        {/* CTA */}
-        <div style={{ margin: "16px 18px 0", display: "flex", gap: 10 }}>
-          <button onClick={onClose} style={{
-            flex: 1, padding: "11px", borderRadius: 11,
-            border: "1.5px solid #E2E8F0", background: "#F8FAFC",
-            color: "#475569", fontSize: 11.5, fontWeight: 700, cursor: "pointer",
-          }}>
+        {/* Actions */}
+        <div className="flex gap-3">
+          <button 
+            onClick={onClose} 
+            className="flex-1 py-3 text-sm font-semibold text-[#64748B] bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl hover:bg-[#F1F5F9] transition-colors"
+          >
             Close
           </button>
-          <button onClick={onStart} style={{
-            flex: 2, padding: "11px", borderRadius: 11, border: "none",
-            background: "linear-gradient(135deg,#3B82F6,#2563EB)",
-            color: "#fff", fontSize: 11.5, fontWeight: 700, cursor: "pointer",
-            boxShadow: "0 3px 11px rgba(59,130,246,0.3)",
-          }}>
+          <button 
+            onClick={onStart} 
+            className="flex-[2] py-3 text-sm font-semibold text-white bg-[#2563EB] rounded-xl shadow-lg shadow-blue-200 hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+          >
             Start Analysis →
           </button>
         </div>

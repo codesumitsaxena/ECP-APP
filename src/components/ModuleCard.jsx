@@ -1,24 +1,23 @@
 export default function ModuleCard({ mod, onResume }) {
   return (
-    <div className="bg-white rounded-[18px] p-4 border-[1.5px] border-slate-200 shadow-sm shadow-blue-100">
-      
+    <div className="bg-white rounded-2xl p-4 border border-[#E2E8F0] shadow-sm">
       {/* Top Row */}
-      <div className="flex justify-between items-start mb-2">
-        <span className="bg-blue-50 text-blue-500 text-[9px] font-bold px-2.5 py-0.5 rounded-full tracking-wide">
+      <div className="flex justify-between items-center mb-2">
+        <span className="bg-[#EFF6FF] text-[#2563EB] text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
           Module {mod.number}
         </span>
-        <span className="text-[10px] text-slate-400">Opened {mod.time}</span>
+        <span className="text-[10px] text-[#94A3B8] font-medium">{mod.time}</span>
       </div>
 
       {/* Title */}
-      <div className="text-[14px] font-extrabold text-slate-900 my-1.5 mb-3 leading-snug">
+      <div className="text-sm font-bold text-[#0F172A] mt-2 mb-3 leading-snug">
         {mod.title}
       </div>
 
       {/* Progress Bar */}
-      <div className="h-1 bg-blue-50 rounded-full mb-3 overflow-hidden">
+      <div className="h-1.5 bg-[#EFF6FF] rounded-full mb-4 overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-1000 ease-out"
+          className="h-full bg-[#2563EB] rounded-full transition-all duration-700 ease-out"
           style={{ width: `${mod.progress}%` }}
         />
       </div>
@@ -26,7 +25,7 @@ export default function ModuleCard({ mod, onResume }) {
       {/* Resume Button */}
       <button
         onClick={onResume}
-        className="w-full py-2.5 rounded-xl border-none bg-gradient-to-br from-blue-500 to-blue-700 text-white text-[12px] font-bold cursor-pointer tracking-wide hover:opacity-90 active:scale-[0.98] transition-all duration-150"
+        className="w-full py-2.5 bg-[#2563EB] text-white text-xs font-semibold rounded-xl transition-all duration-200 hover:opacity-90 active:scale-95 shadow-lg shadow-blue-100"
       >
         Resume Module →
       </button>

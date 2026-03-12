@@ -13,34 +13,31 @@ export default function CasesScreen() {
   const filtered = filter === "ALL" ? CLINICAL_CASES : CLINICAL_CASES.filter(c => c.tag === filter);
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif", padding: "16px 14px 0" }}>
-      <style>{`@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }`}</style>
-      <h1 style={{ fontSize: 21, fontWeight: 900, color: "#0F172A", margin: "0 0 3px" }}>Clinical Cases</h1>
-      <p style={{ fontSize: 10.5, color: "#64748B", margin: "0 0 16px" }}>
+    <div className="min-h-screen bg-[#EEF2F7] px-4 pt-5 pb-0">
+      <h1 className="text-2xl font-bold text-[#0F172A]">Clinical Cases</h1>
+      <p className="text-sm text-[#64748B] mb-5">
         {CLINICAL_CASES.length} reference cases by Dr. T. Rajini Samuel
       </p>
 
       {/* Filter Chips */}
-      <div style={{ display: "flex", gap: 6, overflowX: "auto", paddingBottom: 3, marginBottom: 16,
-        scrollbarWidth: "none", WebkitScrollbar: { display: "none" } }}>
+      <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1 mb-5">
         {tags.map(tag => (
-          <button key={tag} onClick={() => setFilter(tag)} style={{
-            padding: "5.5px 13px", borderRadius: 18, border: "none",
-            background: filter === tag ? "#3B82F6" : "#fff",
-            color: filter === tag ? "#fff" : "#64748B",
-            fontSize: 10, fontWeight: 700, cursor: "pointer",
-            border: filter === tag ? "none" : "1.5px solid #E2E8F0",
-            whiteSpace: "nowrap", flexShrink: 0,
-            transition: "all 0.2s",
-          }}>
+          <button
+            key={tag}
+            onClick={() => setFilter(tag)}
+            className={`px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 border-none outline-none cursor-pointer ${filter === tag
+                ? "bg-[#2563EB] text-white shadow-md shadow-blue-200"
+                : "bg-white text-[#64748B] border border-[#E2E8F0]"
+              }`}
+          >
             {tag}
           </button>
         ))}
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
-        {filtered.map((c, i) => (
-          <div key={c.id} style={{ animation: `fadeUp 0.4s ease ${i * 70}ms both` }}>
+      <div className="flex flex-col gap-3 mb-0">
+        {filtered.map((c) => (
+          <div key={c.id}>
             <CaseCard caseData={c} onClick={() => setSelected(c)} />
           </div>
         ))}

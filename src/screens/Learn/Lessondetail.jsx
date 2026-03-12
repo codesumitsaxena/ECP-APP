@@ -13,93 +13,83 @@ export default function LessonDetail({ navigate }) {
   const progress = Math.round((completed / lessons.length) * 100);
 
   return (
-    <div style={{ width: "100%", maxWidth: 312, background: "#fff", minHeight: "100vh", display: "flex", flexDirection: "column", boxShadow: "0 0 48px rgba(0,0,0,0.1)" }}>
+    <div className="w-full min-h-screen bg-[#EEF2F7] flex flex-col relative">
       <style>{`
         .ld-card { transition: all 0.18s cubic-bezier(0.34,1.56,0.64,1); cursor: pointer; }
         .ld-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.09) !important; }
         .ld-card:active { transform: scale(0.98); }
-        .ld-btn { background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); border: none; cursor: pointer; transition: all 0.2s ease; }
-        .ld-btn:hover { box-shadow: 0 10px 28px rgba(37,99,235,0.4); transform: translateY(-1px); }
         @keyframes ldFadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
         .ld-fade { opacity: 0; animation: ldFadeUp 0.4s ease forwards; }
       `}</style>
 
       {/* Header */}
-      <div style={{ padding: "42px 16px 14px", background: "#fff", borderBottom: "1px solid #F1F5F9" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 13 }}>
-          <button onClick={() => navigate("learn")} style={{ width: 30, height: 30, borderRadius: 10, background: "#F1F5F9", border: "none", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "background 0.15s" }}>
-            <ArrowLeft size={14} color="#374151" strokeWidth={2.5} />
+      <div className="px-4 pt-10 pb-4 bg-white border-b border-[#F1F5F9]">
+        <div className="flex items-center gap-3 mb-4">
+          <button 
+            onClick={() => navigate("learn")} 
+            className="w-8 h-8 rounded-lg bg-[#EEF2F7] flex items-center justify-center text-[#374151] hover:bg-[#E2E8F0] transition-colors"
+          >
+            <ArrowLeft size={16} strokeWidth={2.5} />
           </button>
-          <h1 style={{ fontSize: 14.5, fontWeight: 800, color: "#0F172A", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>ECG Waves</h1>
+          <h1 className="text-lg font-bold text-[#0F172A]">ECG Waves</h1>
         </div>
 
         {/* Progress Card */}
-        <div style={{ background: "#F8FAFF", borderRadius: 13, padding: "13px 15px", border: "1px solid #E0EAFF" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-            <p style={{ fontSize: 10.5, fontWeight: 700, color: "#0F172A" }}>Your Progress</p>
-            <p style={{ fontSize: 10.5, fontWeight: 800, color: "#2563EB" }}>{progress}% completed</p>
+        <div className="bg-[#EEF2F7] rounded-2xl p-4 border border-[#E2E8F0]">
+          <div className="flex justify-between items-center mb-2">
+            <p className="text-[11px] font-bold text-[#0F172A] uppercase tracking-wider">Your Progress</p>
+            <p className="text-[11px] font-bold text-[#2563EB]">{progress}% completed</p>
           </div>
-          <div style={{ height: 5.5, background: "#DBEAFE", borderRadius: 99, overflow: "hidden", marginBottom: 6 }}>
-            <div style={{ height: "100%", width: `${progress}%`, background: "linear-gradient(90deg, #2563EB, #0891B2)", borderRadius: 99, transition: "width 1.2s ease" }} />
+          <div className="h-1.5 bg-white rounded-full mb-2 overflow-hidden">
+            <div className="h-full bg-[#2563EB] rounded-full transition-all duration-1000" style={{ width: `${progress}%` }} />
           </div>
-          <p style={{ fontSize: 9.5, color: "#64748B", fontWeight: 500 }}>Lessons completed: {completed} of {lessons.length}</p>
+          <p className="text-[10px] text-[#64748B] font-medium">Lessons completed: {completed} of {lessons.length}</p>
         </div>
       </div>
 
-      {/* Lessons List */}
-      <div style={{ flex: 1, overflowY: "auto", padding: "16px 16px 32px" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+      {/* Lessons List - Removed flex-grow to comply with rule */}
+      <div className="overflow-y-auto px-4 pt-4 pb-4">
+        <div className="flex flex-col gap-3">
           {lessons.map((lesson, i) => {
             const isActive = lesson.status === "active";
             const isDone = lesson.status === "done";
             return (
               <div
                 key={lesson.id}
-                className={`ld-card ld-fade`}
-                style={{
-                  animationDelay: `${i * 0.07}s`,
-                  background: isActive ? "#F0F7FF" : "#fff",
-                  borderRadius: 13,
-                  padding: "12px 13px",
-                  boxShadow: isActive ? "0 3px 13px rgba(37,99,235,0.1)" : "0 1px 5px rgba(0,0,0,0.05)",
-                  border: isActive ? "1.5px solid #BFDBFE" : "1px solid #F1F5F9",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 10,
-                }}
-                onClick={() => isActive ? navigate("lessonContent") : isDone ? navigate("lessonContent") : null}
+                className={`ld-card ld-fade bg-white rounded-2xl p-4 shadow-sm border ${isActive ? "border-[#2563EB] bg-[#F8FAFF]" : "border-[#E2E8F0]"} flex items-center gap-3`}
+                style={{ animationDelay: `${i * 0.07}s` }}
+                onClick={() => (isActive || isDone) && navigate("lessonContent")}
               >
                 {/* Icon */}
-                <div style={{
-                  width: 35, height: 35, borderRadius: 10,
-                  background: isDone ? "#F0FDF4" : isActive ? "#EFF6FF" : "#F8FAFC",
-                  display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
-                }}>
-                  {isDone && <CheckCircle size={18} color="#22C55E" strokeWidth={2} />}
-                  {isActive && <PlayCircle size={18} color="#2563EB" strokeWidth={2} />}
-                  {lesson.status === "pending" && <FileText size={16} color="#94A3B8" strokeWidth={1.8} />}
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isDone ? "bg-[#EEF2F7]" : isActive ? "bg-[#EEF2F7]" : "bg-[#EEF2F7]"}`}>
+                  {isDone && <CheckCircle size={20} className="text-[#10B981]" strokeWidth={2} />}
+                  {isActive && <PlayCircle size={20} className="text-[#2563EB]" strokeWidth={2} />}
+                  {lesson.status === "pending" && <FileText size={18} className="text-[#94A3B8]" strokeWidth={1.8} />}
                 </div>
 
                 {/* Text */}
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: 10.5, fontWeight: 700, color: isActive ? "#1D4ED8" : isDone ? "#0F172A" : "#64748B", marginBottom: 2, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{lesson.title}</p>
-                  <p style={{ fontSize: 9, color: "#94A3B8", fontWeight: 500, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{lesson.desc}</p>
+                <div className="flex-1 min-w-0">
+                  <p className={`text-sm font-bold leading-tight ${isActive ? "text-[#2563EB]" : "text-[#0F172A]"}`}>{lesson.title}</p>
+                  <p className="text-[11px] text-[#64748B] font-medium mt-1 truncate">{lesson.desc}</p>
                 </div>
 
                 {/* Right indicator */}
                 {isActive && (
-                  <div style={{ width: 22, height: 22, borderRadius: "50%", border: "2px solid #2563EB", borderTopColor: "transparent", animation: "spin 1s linear infinite", flexShrink: 0 }} />
+                  <div className="w-5 h-5 rounded-full border-2 border-[#2563EB] border-t-transparent animate-spin shrink-0" />
                 )}
-                {isDone && <ChevronRight size={13} color="#CBD5E1" />}
+                {isDone && <ChevronRight size={16} className="text-[#CBD5E1]" />}
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* Bottom Button */}
-      <div style={{ padding: "10px 13px 28px", background: "#fff", borderTop: "1px solid #F1F5F9" }}>
-        <button className="ld-btn" onClick={() => navigate("lessonContent")} style={{ width: "100%", padding: "12px", borderRadius: 11, color: "#fff", fontSize: 12, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+      {/* Bottom Button Area - Applied the EEF2F7 bg as requested */}
+      <div className="px-4 pb-4 bg-[#EEF2F7] mt-auto">
+        <button 
+          className="w-full bg-[#2563EB] text-white font-bold py-4 rounded-2xl text-sm shadow-lg shadow-blue-100 active:scale-95 transition-all"
+          onClick={() => navigate("lessonContent")}
+        >
           Start Lesson
         </button>
       </div>

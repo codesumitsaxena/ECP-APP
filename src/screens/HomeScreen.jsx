@@ -19,60 +19,35 @@ export default function HomeScreen({ setActiveTab, onResumeModule }) {
   };
 
   return (
-    <div style={{ fontFamily: "'DM Sans', sans-serif" }}>
+    <div className="min-h-screen bg-[#EEF2F7]">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap');
         @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
         @keyframes toastIn { 0% { opacity:0; transform:translateY(20px) scale(0.95); } 100% { opacity:1; transform:translateY(0) scale(1); } }
         .section-block { animation: fadeUp 0.45s ease both; }
       `}</style>
 
-      <div style={{ padding: "16px 14px 0" }}>
-
+      <div className="px-4 pt-5 pb-0">
         {/* ── Header ── */}
-        <div className="section-block" style={{
-          display: "flex", justifyContent: "space-between",
-          alignItems: "flex-start", marginBottom: 18, animationDelay: "0ms",
-        }}>
+        <div className="flex items-center justify-between mb-5 section-block" style={{ animationDelay: "0ms" }}>
           <div>
-            <div style={{ fontSize: 11, color: "#64748B", fontWeight: 500 }}>Welcome back,</div>
-            <div style={{ fontSize: 22, fontWeight: 900, color: "#0F172A", letterSpacing: -0.4 }}>
-              {USER.name}
-            </div>
+            <p className="text-sm text-[#64748B] font-normal">Welcome back,</p>
+            <h1 className="text-2xl font-bold text-[#0F172A]">{USER.name}</h1>
           </div>
           <div
             onClick={() => setActiveTab("settings")}
-            style={{
-              width: 38, height: 38, borderRadius: "50%",
-              background: "linear-gradient(135deg,#BFDBFE,#93C5FD)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: 12, fontWeight: 900, color: "#1D4ED8",
-              border: "2px solid #fff",
-              boxShadow: "0 2px 8px rgba(59,130,246,0.2)",
-              cursor: "pointer", letterSpacing: 0.5,
-            }}
+            className="w-10 h-10 bg-white text-[#2563EB] rounded-full flex items-center justify-center font-semibold text-sm cursor-pointer border-2 border-white shadow-sm"
           >
             {USER.initials}
           </div>
         </div>
 
         {/* ── Training Completion Card ── */}
-        <div className="section-block" style={{
-          background: "#fff", borderRadius: 20, padding: "18px 20px",
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          boxShadow: "0 3px 16px rgba(59,130,246,0.09)", marginBottom: 22,
-          border: "1.5px solid #E8F0FE", animationDelay: "60ms",
-          background: "linear-gradient(135deg,#fff 60%,#EFF6FF 100%)",
-        }}>
+        <div className="bg-white rounded-2xl p-4 border border-[#E2E8F0] shadow-sm mb-5 flex items-center justify-between section-block" style={{ animationDelay: "60ms" }}>
           <div>
-            <div style={{ fontSize: 9, fontWeight: 700, color: "#94A3B8", letterSpacing: 1, marginBottom: 3 }}>
-              TRAINING COMPLETION
-            </div>
-            <div style={{ fontSize: 36, fontWeight: 900, color: "#0F172A", lineHeight: 1, marginBottom: 5 }}>
-              {USER.progress}%
-            </div>
-            <div style={{ fontSize: 10, fontWeight: 700, color: "#22C55E", display: "flex", alignItems: "center", gap: 3 }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5">
+            <p className="text-xs font-semibold text-[#94A3B8] uppercase tracking-wider mb-1">TRAINING COMPLETION</p>
+            <h2 className="text-4xl font-bold text-[#0F172A] leading-tight mb-1">{USER.progress}%</h2>
+            <div className="text-xs text-[#10B981] font-medium flex items-center gap-1">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
                 <polyline points="17 6 23 6 23 12" />
               </svg>
@@ -83,37 +58,37 @@ export default function HomeScreen({ setActiveTab, onResumeModule }) {
         </div>
 
         {/* ── Continue Learning ── */}
-        <div className="section-block" style={{ marginBottom: 20, animationDelay: "100ms" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 11 }}>
-            <h2 style={{ fontSize: 15, fontWeight: 900, color: "#0F172A", margin: 0 }}>Continue Learning</h2>
-            <span
+        <div className="mb-5 section-block" style={{ animationDelay: "100ms" }}>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-base font-semibold text-[#0F172A]">Continue Learning</h2>
+            <button
               onClick={() => setActiveTab("learn")}
-              style={{ fontSize: 11, color: "#3B82F6", fontWeight: 700, cursor: "pointer" }}
+              className="text-sm text-[#2563EB] font-medium"
             >
-              See all →
-            </span>
+              See all
+            </button>
           </div>
           <ModuleCard
             mod={CURRENT_MODULE}
             onResume={() => {
               onResumeModule();
-              showToast("Resuming Module 3…");
+              showToast("Resuming Module…");
             }}
           />
         </div>
 
         {/* ── Quick Training ── */}
-        <div className="section-block" style={{ marginBottom: 20, animationDelay: "140ms" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 11 }}>
-            <h2 style={{ fontSize: 15, fontWeight: 900, color: "#0F172A", margin: 0 }}>Quick Training</h2>
-            <span
+        <div className="mb-5 section-block" style={{ animationDelay: "140ms" }}>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-base font-semibold text-[#0F172A]">Quick Training</h2>
+            <button
               onClick={() => setActiveTab("train")}
-              style={{ fontSize: 11, color: "#3B82F6", fontWeight: 700, cursor: "pointer" }}
+              className="text-sm text-[#2563EB] font-medium"
             >
-              See all →
-            </span>
+              See all
+            </button>
           </div>
-          <div style={{ display: "flex", gap: 10 }}>
+          <div className="flex gap-3">
             {QUICK_TOOLS.map((tool) => (
               <QuickToolCard
                 key={tool.id}
@@ -128,27 +103,26 @@ export default function HomeScreen({ setActiveTab, onResumeModule }) {
         </div>
 
         {/* ── Stats Row ── */}
-        <div className="section-block" style={{ marginBottom: 22, animationDelay: "170ms" }}>
+        <div className="mb-5 section-block" style={{ animationDelay: "170ms" }}>
           <StatRow stats={USER.stats} />
         </div>
 
         {/* ── Case of the Day ── */}
-        <div className="section-block" style={{ marginBottom: 16, animationDelay: "200ms" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 11 }}>
-            <h2 style={{ fontSize: 15, fontWeight: 900, color: "#0F172A", margin: 0 }}>Case of the Day</h2>
-            <span
+        <div className="mb-0 section-block" style={{ animationDelay: "200ms" }}>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-base font-semibold text-[#0F172A]">Case of the Day</h2>
+            <button
               onClick={() => setActiveTab("cases")}
-              style={{ fontSize: 11, color: "#3B82F6", fontWeight: 700, cursor: "pointer" }}
+              className="text-sm text-[#2563EB] font-medium"
             >
-              All cases →
-            </span>
+              All cases
+            </button>
           </div>
           <CaseCard
             caseData={CLINICAL_CASES[1]}
             onClick={() => setSelectedCase(CLINICAL_CASES[1])}
           />
         </div>
-
       </div>
 
       {/* Case Modal */}
@@ -166,17 +140,7 @@ export default function HomeScreen({ setActiveTab, onResumeModule }) {
 
       {/* Toast */}
       {toast && (
-        <div style={{
-          position: "fixed", bottom: 80, left: "50%",
-          transform: "translateX(-50%)",
-          background: "rgba(15,23,42,0.9)",
-          backdropFilter: "blur(12px)",
-          color: "#fff", padding: "8px 18px",
-          borderRadius: 22, fontSize: 11, fontWeight: 600,
-          zIndex: 400, whiteSpace: "nowrap",
-          animation: "toastIn 0.3s ease",
-          boxShadow: "0 3px 16px rgba(0,0,0,0.2)",
-        }}>
+        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 bg-[#0F172A]/90 backdrop-blur-md text-white px-5 py-2 rounded-full text-xs font-semibold z-[100] whitespace-nowrap shadow-lg" style={{ animation: "toastIn 0.3s ease" }}>
           {toast}
         </div>
       )}
