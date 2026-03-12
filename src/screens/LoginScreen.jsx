@@ -19,11 +19,11 @@ export default function LoginScreen({ onLogin }) {
   };
 
   const inputStyle = (field) => ({
-    width: "100%", padding: "13px 16px",
-    borderRadius: 14,
+    width: "100%", padding: "10px 13px",
+    borderRadius: 11,
     border: `1.8px solid ${focusField === field ? "#3B82F6" : "#E2E8F0"}`,
     background: focusField === field ? "#F0F6FF" : "#F8FAFC",
-    fontSize: 14, color: "#0F172A", outline: "none",
+    fontSize: 11.5, color: "#0F172A", outline: "none",
     boxSizing: "border-box",
     transition: "border 0.2s, background 0.2s",
     fontFamily: "'DM Sans', sans-serif",
@@ -36,7 +36,7 @@ export default function LoginScreen({ onLogin }) {
       display: "flex", alignItems: "center", justifyContent: "center",
       fontFamily: "'DM Sans', sans-serif",
       position: "relative", overflow: "hidden",
-      padding: "20px",
+      padding: "16px",
     }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap');
@@ -50,31 +50,31 @@ export default function LoginScreen({ onLogin }) {
       <ECGBackground />
 
       {/* Blobs */}
-      <div style={{ position:"absolute", top:"-80px", right:"-80px", width:260, height:260, borderRadius:"50%", background:"rgba(59,130,246,0.07)", pointerEvents:"none" }}/>
-      <div style={{ position:"absolute", bottom:"-60px", left:"-60px", width:200, height:200, borderRadius:"50%", background:"rgba(37,99,235,0.06)", pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", top:"-64px", right:"-64px", width:208, height:208, borderRadius:"50%", background:"rgba(59,130,246,0.07)", pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", bottom:"-48px", left:"-48px", width:160, height:160, borderRadius:"50%", background:"rgba(37,99,235,0.06)", pointerEvents:"none" }}/>
 
       <div style={{
         background: "rgba(255,255,255,0.92)",
         backdropFilter: "blur(24px)",
         WebkitBackdropFilter: "blur(24px)",
-        borderRadius: 28, padding: "40px 32px 32px",
-        width: "100%", maxWidth: 360,
-        boxShadow: "0 20px 60px rgba(59,130,246,0.13), 0 4px 16px rgba(0,0,0,0.05)",
+        borderRadius: 22, padding: "32px 25px 25px",
+        width: "100%", maxWidth: 288,
+        boxShadow: "0 16px 48px rgba(59,130,246,0.13), 0 3px 12px rgba(0,0,0,0.05)",
         border: "1.5px solid rgba(255,255,255,0.8)",
         position: "relative", zIndex: 1,
         animation: "cardIn 0.55s cubic-bezier(0.34,1.1,0.64,1) forwards",
       }}>
 
         {/* App Logo */}
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
           <div style={{
-            width: 70, height: 70, borderRadius: 22,
+            width: 56, height: 56, borderRadius: 18,
             background: "linear-gradient(135deg,#3B82F6,#1D4ED8)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            boxShadow: "0 6px 24px rgba(59,130,246,0.4)",
+            boxShadow: "0 5px 20px rgba(59,130,246,0.4)",
             animation: "pulse 3s ease-in-out infinite",
           }}>
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+            <svg width="27" height="27" viewBox="0 0 34 34" fill="none">
               <polyline
                 points="2,17 6,17 8,9 10,25 12,11 14,22 16,17 19,17 21,9 23,25 25,11 27,22 29,17 32,17"
                 stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" fill="none"
@@ -83,15 +83,15 @@ export default function LoginScreen({ onLogin }) {
           </div>
         </div>
 
-        <h1 style={{ textAlign: "center", fontSize: 24, fontWeight: 900, color: "#0F172A", margin: "0 0 4px", letterSpacing: 1.2 }}>
+        <h1 style={{ textAlign: "center", fontSize: 19, fontWeight: 900, color: "#0F172A", margin: "0 0 3px", letterSpacing: 1 }}>
           TTOOLECG
         </h1>
-        <p style={{ textAlign: "center", fontSize: 13, color: "#64748B", margin: "0 0 32px", fontWeight: 500 }}>
+        <p style={{ textAlign: "center", fontSize: 10.5, color: "#64748B", margin: "0 0 25px", fontWeight: 500 }}>
           ECG Training &amp; Vector Theory
         </p>
 
         {/* Email */}
-        <label style={{ fontSize: 11, fontWeight: 700, color: "#475569", letterSpacing: 0.8, display: "block", marginBottom: 7 }}>
+        <label style={{ fontSize: 9, fontWeight: 700, color: "#475569", letterSpacing: 0.8, display: "block", marginBottom: 5 }}>
           EMAIL
         </label>
         <input
@@ -103,7 +103,7 @@ export default function LoginScreen({ onLogin }) {
         />
 
         {/* Password */}
-        <label style={{ fontSize: 11, fontWeight: 700, color: "#475569", letterSpacing: 0.8, display: "block", margin: "18px 0 7px" }}>
+        <label style={{ fontSize: 9, fontWeight: 700, color: "#475569", letterSpacing: 0.8, display: "block", margin: "14px 0 5px" }}>
           PASSWORD
         </label>
         <input
@@ -120,7 +120,7 @@ export default function LoginScreen({ onLogin }) {
           <div
             onClick={() => setRemember(!remember)}
             style={{
-              width: 18, height: 18, borderRadius: 6, border: `2px solid ${remember ? "#3B82F6" : "#CBD5E1"}`,
+              width: 14, height: 14, borderRadius: 5, border: `1.8px solid ${remember ? "#3B82F6" : "#CBD5E1"}`,
               background: remember ? "#3B82F6" : "#fff", cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",
               transition: "all 0.2s", flexShrink: 0,
@@ -140,8 +140,8 @@ export default function LoginScreen({ onLogin }) {
         {error && (
           <div style={{
             background: "#FEF2F2", border: "1.5px solid #FECACA",
-            borderRadius: 10, padding: "10px 14px",
-            color: "#DC2626", fontSize: 13, fontWeight: 600, marginBottom: 14,
+            borderRadius: 8, padding: "8px 11px",
+            color: "#DC2626", fontSize: 10.5, fontWeight: 600, marginBottom: 11,
           }}>
             {error}
           </div>
@@ -153,17 +153,17 @@ export default function LoginScreen({ onLogin }) {
           onClick={handleLogin}
           disabled={loading}
           style={{
-            width: "100%", padding: "15px",
-            borderRadius: 16, border: "none",
+            width: "100%", padding: "12px",
+            borderRadius: 13, border: "none",
             background: loading
               ? "linear-gradient(135deg,#93C5FD,#60A5FA)"
               : "linear-gradient(135deg,#3B82F6,#1D4ED8)",
-            color: "#fff", fontSize: 15, fontWeight: 800,
+            color: "#fff", fontSize: 12, fontWeight: 800,
             cursor: loading ? "not-allowed" : "pointer",
-            boxShadow: "0 4px 18px rgba(59,130,246,0.38)",
+            boxShadow: "0 3px 14px rgba(59,130,246,0.38)",
             transition: "all 0.2s",
             letterSpacing: 0.4,
-            display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+            display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
           }}
         >
           {loading ? (
@@ -177,7 +177,7 @@ export default function LoginScreen({ onLogin }) {
           ) : "Enter Application"}
         </button>
 
-        <p style={{ textAlign: "center", fontSize: 11, color: "#94A3B8", marginTop: 22, lineHeight: 1.7 }}>
+        <p style={{ textAlign: "center", fontSize: 9, color: "#94A3B8", marginTop: 18, lineHeight: 1.7 }}>
           For educational use only.<br />
           Not for clinical diagnosis.
         </p>

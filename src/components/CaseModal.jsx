@@ -28,10 +28,10 @@ export default function CaseModal({ caseData, onClose, onStart }) {
       <div
         style={{
           background: "#fff",
-          borderRadius: "28px 28px 0 0",
-          padding: "0 0 36px",
+          borderRadius: "22px 22px 0 0",
+          padding: "0 0 28px",
           width: "100%",
-          maxWidth: 430,
+          maxWidth: 344,
           margin: "0 auto",
           animation: "slideUp 0.35s cubic-bezier(0.34,1.1,0.64,1)",
           maxHeight: "88vh",
@@ -40,66 +40,66 @@ export default function CaseModal({ caseData, onClose, onStart }) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drag handle */}
-        <div style={{ padding: "14px 0 0", display: "flex", justifyContent: "center" }}>
-          <div style={{ width: 40, height: 4, background: "#E2E8F0", borderRadius: 99 }}/>
+        <div style={{ padding: "11px 0 0", display: "flex", justifyContent: "center" }}>
+          <div style={{ width: 32, height: 3, background: "#E2E8F0", borderRadius: 99 }}/>
         </div>
 
         {/* Header */}
-        <div style={{ padding: "16px 22px 0", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-          <div style={{ flex: 1, marginRight: 12 }}>
-            <h3 style={{ fontSize: 20, fontWeight: 900, color: "#0F172A", margin: "0 0 4px" }}>
+        <div style={{ padding: "13px 18px 0", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div style={{ flex: 1, marginRight: 10 }}>
+            <h3 style={{ fontSize: 16, fontWeight: 900, color: "#0F172A", margin: "0 0 3px" }}>
               {caseData.title}
             </h3>
-            <p style={{ fontSize: 13, color: "#64748B", margin: 0 }}>{caseData.sub}</p>
+            <p style={{ fontSize: 10.5, color: "#64748B", margin: 0 }}>{caseData.sub}</p>
           </div>
           <span style={{
             background: caseData.tagBg, color: caseData.tagColor,
-            fontSize: 10, fontWeight: 800, padding: "5px 11px",
-            borderRadius: 20, letterSpacing: 0.5, flexShrink: 0,
+            fontSize: 8.5, fontWeight: 800, padding: "4px 9px",
+            borderRadius: 16, letterSpacing: 0.5, flexShrink: 0,
           }}>{caseData.tag}</span>
         </div>
 
         {/* ECG */}
-        <div style={{ margin: "16px 22px 0" }}>
+        <div style={{ margin: "13px 18px 0" }}>
           <MiniECG />
         </div>
 
         {/* Description */}
-        <div style={{ margin: "16px 22px 0" }}>
-          <p style={{ fontSize: 13, color: "#475569", lineHeight: 1.6, margin: 0,
-            background: "#F8FAFC", borderRadius: 14, padding: "12px 14px",
+        <div style={{ margin: "13px 18px 0" }}>
+          <p style={{ fontSize: 10.5, color: "#475569", lineHeight: 1.6, margin: 0,
+            background: "#F8FAFC", borderRadius: 11, padding: "10px 11px",
             border: "1.5px solid #E2E8F0" }}>
             {caseData.description}
           </p>
         </div>
 
         {/* Findings Grid */}
-        <div style={{ margin: "14px 22px 0", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+        <div style={{ margin: "11px 18px 0", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
           {caseData.findings.map(([k, v]) => (
             <div key={k} style={{
-              background: "#F8FAFC", borderRadius: 14, padding: "12px 14px",
+              background: "#F8FAFC", borderRadius: 11, padding: "10px 11px",
               border: "1.5px solid #E2E8F0",
             }}>
-              <div style={{ fontSize: 10, color: "#94A3B8", fontWeight: 600, letterSpacing: 0.5, marginBottom: 3 }}>{k.toUpperCase()}</div>
-              <div style={{ fontSize: 14, fontWeight: 800, color: "#0F172A" }}>{v}</div>
+              <div style={{ fontSize: 8.5, color: "#94A3B8", fontWeight: 600, letterSpacing: 0.5, marginBottom: 2 }}>{k.toUpperCase()}</div>
+              <div style={{ fontSize: 11.5, fontWeight: 800, color: "#0F172A" }}>{v}</div>
             </div>
           ))}
         </div>
 
         {/* CTA */}
-        <div style={{ margin: "20px 22px 0", display: "flex", gap: 12 }}>
+        <div style={{ margin: "16px 18px 0", display: "flex", gap: 10 }}>
           <button onClick={onClose} style={{
-            flex: 1, padding: "14px", borderRadius: 14,
+            flex: 1, padding: "11px", borderRadius: 11,
             border: "1.5px solid #E2E8F0", background: "#F8FAFC",
-            color: "#475569", fontSize: 14, fontWeight: 700, cursor: "pointer",
+            color: "#475569", fontSize: 11.5, fontWeight: 700, cursor: "pointer",
           }}>
             Close
           </button>
           <button onClick={onStart} style={{
-            flex: 2, padding: "14px", borderRadius: 14, border: "none",
+            flex: 2, padding: "11px", borderRadius: 11, border: "none",
             background: "linear-gradient(135deg,#3B82F6,#2563EB)",
-            color: "#fff", fontSize: 14, fontWeight: 700, cursor: "pointer",
-            boxShadow: "0 4px 14px rgba(59,130,246,0.3)",
+            color: "#fff", fontSize: 11.5, fontWeight: 700, cursor: "pointer",
+            boxShadow: "0 3px 11px rgba(59,130,246,0.3)",
           }}>
             Start Analysis →
           </button>

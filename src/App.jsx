@@ -34,12 +34,12 @@ export default function App() {
     <div style={{
       background: "#EEF2F8",
       minHeight: "100vh",
-      maxWidth: 390,
+      maxWidth: 312,
       width: "100%",
       margin: "0 auto",
       position: "relative",
       overflowX: "hidden",
-      fontSize: "14px",
+      fontSize: "11px",
     }}>
       <div style={{ width: "100%", paddingBottom: 20 }}>
         {renderScreen()}

@@ -13,7 +13,7 @@ export default function LessonDetail({ navigate }) {
   const progress = Math.round((completed / lessons.length) * 100);
 
   return (
-    <div style={{ width: "100%", maxWidth: 390, background: "#fff", minHeight: "100vh", display: "flex", flexDirection: "column", boxShadow: "0 0 60px rgba(0,0,0,0.1)" }}>
+    <div style={{ width: "100%", maxWidth: 312, background: "#fff", minHeight: "100vh", display: "flex", flexDirection: "column", boxShadow: "0 0 48px rgba(0,0,0,0.1)" }}>
       <style>{`
         .ld-card { transition: all 0.18s cubic-bezier(0.34,1.56,0.64,1); cursor: pointer; }
         .ld-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.09) !important; }
@@ -25,24 +25,24 @@ export default function LessonDetail({ navigate }) {
       `}</style>
 
       {/* Header */}
-      <div style={{ padding: "52px 20px 18px", background: "#fff", borderBottom: "1px solid #F1F5F9" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-          <button onClick={() => navigate("learn")} style={{ width: 38, height: 38, borderRadius: 12, background: "#F1F5F9", border: "none", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "background 0.15s" }}>
-            <ArrowLeft size={18} color="#374151" strokeWidth={2.5} />
+      <div style={{ padding: "42px 16px 14px", background: "#fff", borderBottom: "1px solid #F1F5F9" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 13 }}>
+          <button onClick={() => navigate("learn")} style={{ width: 30, height: 30, borderRadius: 10, background: "#F1F5F9", border: "none", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "background 0.15s" }}>
+            <ArrowLeft size={14} color="#374151" strokeWidth={2.5} />
           </button>
-          <h1 style={{ fontSize: 18, fontWeight: 800, color: "#0F172A", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>ECG Waves</h1>
+          <h1 style={{ fontSize: 14.5, fontWeight: 800, color: "#0F172A", fontFamily: "'Plus Jakarta Sans', sans-serif" }}>ECG Waves</h1>
         </div>
 
         {/* Progress Card */}
-        <div style={{ background: "#F8FAFF", borderRadius: 16, padding: "16px 18px", border: "1px solid #E0EAFF" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-            <p style={{ fontSize: 13, fontWeight: 700, color: "#0F172A" }}>Your Progress</p>
-            <p style={{ fontSize: 13, fontWeight: 800, color: "#2563EB" }}>{progress}% completed</p>
+        <div style={{ background: "#F8FAFF", borderRadius: 13, padding: "13px 15px", border: "1px solid #E0EAFF" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+            <p style={{ fontSize: 10.5, fontWeight: 700, color: "#0F172A" }}>Your Progress</p>
+            <p style={{ fontSize: 10.5, fontWeight: 800, color: "#2563EB" }}>{progress}% completed</p>
           </div>
-          <div style={{ height: 7, background: "#DBEAFE", borderRadius: 99, overflow: "hidden", marginBottom: 8 }}>
+          <div style={{ height: 5.5, background: "#DBEAFE", borderRadius: 99, overflow: "hidden", marginBottom: 6 }}>
             <div style={{ height: "100%", width: `${progress}%`, background: "linear-gradient(90deg, #2563EB, #0891B2)", borderRadius: 99, transition: "width 1.2s ease" }} />
           </div>
-          <p style={{ fontSize: 12, color: "#64748B", fontWeight: 500 }}>Lessons completed: {completed} of {lessons.length}</p>
+          <p style={{ fontSize: 9.5, color: "#64748B", fontWeight: 500 }}>Lessons completed: {completed} of {lessons.length}</p>
         </div>
       </div>
 
@@ -59,38 +59,38 @@ export default function LessonDetail({ navigate }) {
                 style={{
                   animationDelay: `${i * 0.07}s`,
                   background: isActive ? "#F0F7FF" : "#fff",
-                  borderRadius: 16,
-                  padding: "15px 16px",
-                  boxShadow: isActive ? "0 4px 16px rgba(37,99,235,0.1)" : "0 1px 6px rgba(0,0,0,0.05)",
+                  borderRadius: 13,
+                  padding: "12px 13px",
+                  boxShadow: isActive ? "0 3px 13px rgba(37,99,235,0.1)" : "0 1px 5px rgba(0,0,0,0.05)",
                   border: isActive ? "1.5px solid #BFDBFE" : "1px solid #F1F5F9",
                   display: "flex",
                   alignItems: "center",
-                  gap: 13,
+                  gap: 10,
                 }}
                 onClick={() => isActive ? navigate("lessonContent") : isDone ? navigate("lessonContent") : null}
               >
                 {/* Icon */}
                 <div style={{
-                  width: 44, height: 44, borderRadius: 13,
+                  width: 35, height: 35, borderRadius: 10,
                   background: isDone ? "#F0FDF4" : isActive ? "#EFF6FF" : "#F8FAFC",
                   display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
                 }}>
-                  {isDone && <CheckCircle size={22} color="#22C55E" strokeWidth={2} />}
-                  {isActive && <PlayCircle size={22} color="#2563EB" strokeWidth={2} />}
-                  {lesson.status === "pending" && <FileText size={20} color="#94A3B8" strokeWidth={1.8} />}
+                  {isDone && <CheckCircle size={18} color="#22C55E" strokeWidth={2} />}
+                  {isActive && <PlayCircle size={18} color="#2563EB" strokeWidth={2} />}
+                  {lesson.status === "pending" && <FileText size={16} color="#94A3B8" strokeWidth={1.8} />}
                 </div>
 
                 {/* Text */}
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: 13, fontWeight: 700, color: isActive ? "#1D4ED8" : isDone ? "#0F172A" : "#64748B", marginBottom: 2, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{lesson.title}</p>
-                  <p style={{ fontSize: 11, color: "#94A3B8", fontWeight: 500, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{lesson.desc}</p>
+                  <p style={{ fontSize: 10.5, fontWeight: 700, color: isActive ? "#1D4ED8" : isDone ? "#0F172A" : "#64748B", marginBottom: 2, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{lesson.title}</p>
+                  <p style={{ fontSize: 9, color: "#94A3B8", fontWeight: 500, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{lesson.desc}</p>
                 </div>
 
                 {/* Right indicator */}
                 {isActive && (
-                  <div style={{ width: 28, height: 28, borderRadius: "50%", border: "2.5px solid #2563EB", borderTopColor: "transparent", animation: "spin 1s linear infinite", flexShrink: 0 }} />
+                  <div style={{ width: 22, height: 22, borderRadius: "50%", border: "2px solid #2563EB", borderTopColor: "transparent", animation: "spin 1s linear infinite", flexShrink: 0 }} />
                 )}
-                {isDone && <ChevronRight size={16} color="#CBD5E1" />}
+                {isDone && <ChevronRight size={13} color="#CBD5E1" />}
               </div>
             );
           })}
@@ -98,8 +98,8 @@ export default function LessonDetail({ navigate }) {
       </div>
 
       {/* Bottom Button */}
-      <div style={{ padding: "12px 16px 36px", background: "#fff", borderTop: "1px solid #F1F5F9" }}>
-        <button className="ld-btn" onClick={() => navigate("lessonContent")} style={{ width: "100%", padding: "15px", borderRadius: 14, color: "#fff", fontSize: 15, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+      <div style={{ padding: "10px 13px 28px", background: "#fff", borderTop: "1px solid #F1F5F9" }}>
+        <button className="ld-btn" onClick={() => navigate("lessonContent")} style={{ width: "100%", padding: "12px", borderRadius: 11, color: "#fff", fontSize: 12, fontWeight: 700, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
           Start Lesson
         </button>
       </div>

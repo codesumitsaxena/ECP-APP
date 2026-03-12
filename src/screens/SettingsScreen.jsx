@@ -30,35 +30,35 @@ const USER = {
 const Row = ({ Icon, iconBg, iconColor, label, value, onClick, toggle, danger }) => (
   <div
     onClick={onClick}
-    className={`flex items-center py-4 border-b border-slate-100 last:border-b-0 transition-opacity duration-150 ${onClick ? "cursor-pointer hover:opacity-70" : "cursor-default"}`}
+    className={`flex items-center py-3 border-b border-slate-100 last:border-b-0 transition-opacity duration-150 ${onClick ? "cursor-pointer hover:opacity-70" : "cursor-default"}`}
   >
     {/* Icon Box */}
     <div
-      className={`w-9 h-9 rounded-xl flex items-center justify-center mr-3.5 shrink-0 ${danger ? "bg-red-50 text-red-500" : ""}`}
+      className={`w-7 h-7 rounded-lg flex items-center justify-center mr-3 shrink-0 ${danger ? "bg-red-50 text-red-500" : ""}`}
       style={!danger ? { background: iconBg || "#F1F5F9", color: iconColor || "#64748B" } : {}}
     >
-      <Icon size={18} strokeWidth={2} />
+      <Icon size={14} strokeWidth={2} />
     </div>
 
     {/* Label & Value */}
     <div className="flex-1">
-      <div className={`text-sm font-bold ${danger ? "text-red-500" : "text-slate-900"}`}>{label}</div>
-      {value && <div className="text-xs text-slate-400 mt-0.5">{value}</div>}
+      <div className={`text-[12px] font-bold ${danger ? "text-red-500" : "text-slate-900"}`}>{label}</div>
+      {value && <div className="text-[10px] text-slate-400 mt-0.5">{value}</div>}
     </div>
 
     {/* Toggle or Chevron */}
     {toggle !== undefined ? (
       <div
-        className={`w-11 h-6.5 rounded-full relative cursor-pointer transition-colors duration-200 shrink-0 ${toggle ? "bg-blue-500" : "bg-slate-200"}`}
-        style={{ width: 44, height: 26 }}
+        className={`w-9 h-5 rounded-full relative cursor-pointer transition-colors duration-200 shrink-0 ${toggle ? "bg-blue-500" : "bg-slate-200"}`}
+        style={{ width: 35, height: 21 }}
       >
         <div
-          className="w-5 h-5 rounded-full bg-white absolute top-0.5 transition-all duration-200 shadow"
-          style={{ left: toggle ? 21 : 3 }}
+          className="w-4 h-4 rounded-full bg-white absolute top-0.5 transition-all duration-200 shadow"
+          style={{ left: toggle ? 17 : 2 }}
         />
       </div>
     ) : onClick ? (
-      <ChevronRight size={16} className="text-slate-300" strokeWidth={2.5} />
+      <ChevronRight size={13} className="text-slate-300" strokeWidth={2.5} />
     ) : null}
   </div>
 );
@@ -81,41 +81,41 @@ function ProfileEditModal({ profile, onSave, onClose }) {
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/45 backdrop-blur-sm">
       <style>{`@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}`}</style>
       <div
-        className="w-full max-w-[430px] bg-white rounded-t-3xl px-5 pt-7 pb-10"
+        className="w-full max-w-[344px] bg-white rounded-t-2xl px-4 pt-5 pb-8"
         style={{ animation: "slideUp 0.3s cubic-bezier(.34,1.56,.64,1) both" }}
       >
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg font-black text-slate-900">Edit Profile</h2>
+        <div className="flex justify-between items-center mb-5">
+          <h2 className="text-base font-black text-slate-900">Edit Profile</h2>
           <button
             onClick={onClose}
-            className="bg-slate-100 border-none rounded-xl w-8 h-8 flex items-center justify-center cursor-pointer text-slate-500 hover:bg-slate-200 transition-colors"
+            className="bg-slate-100 border-none rounded-lg w-6 h-6 flex items-center justify-center cursor-pointer text-slate-500 hover:bg-slate-200 transition-colors"
           >
-            <X size={18} strokeWidth={2.5} />
+            <X size={14} strokeWidth={2.5} />
           </button>
         </div>
 
         {/* Avatar Preview */}
-        <div className="flex justify-center mb-6">
-          <div className="w-18 h-18 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-2xl font-black text-white shadow-lg shadow-blue-200"
-            style={{ width: 72, height: 72 }}>
+        <div className="flex justify-center mb-5">
+          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-xl font-black text-white shadow-lg shadow-blue-200"
+            style={{ width: 58, height: 58 }}>
             {initials}
           </div>
         </div>
 
         {/* Fields */}
         {fields.map(({ Icon, label, val, set, ph }) => (
-          <div key={label} className="mb-3.5">
-            <div className="text-[11px] font-bold text-slate-400 tracking-widest uppercase mb-1.5">
+          <div key={label} className="mb-3">
+            <div className="text-[9px] font-bold text-slate-400 tracking-widest uppercase mb-1">
               {label}
             </div>
-            <div className="flex items-center gap-2.5 bg-slate-50 rounded-2xl border-[1.5px] border-slate-200 px-3.5">
-              <Icon size={16} className="text-slate-400 shrink-0" strokeWidth={2} />
+            <div className="flex items-center gap-2 bg-slate-50 rounded-xl border-[1.5px] border-slate-200 px-3">
+              <Icon size={14} className="text-slate-400 shrink-0" strokeWidth={2} />
               <input
                 value={val}
                 onChange={e => set(e.target.value)}
                 placeholder={ph}
-                className="flex-1 border-none bg-transparent text-sm font-semibold text-slate-900 py-3 outline-none placeholder:text-slate-300 font-[DM_Sans,sans-serif]"
+                className="flex-1 border-none bg-transparent text-[11.5px] font-semibold text-slate-900 py-2.5 outline-none placeholder:text-slate-300 font-[DM_Sans,sans-serif]"
               />
             </div>
           </div>
@@ -124,9 +124,9 @@ function ProfileEditModal({ profile, onSave, onClose }) {
         {/* Save Button */}
         <button
           onClick={() => onSave({ name, email, role })}
-          className="w-full py-4 mt-2 bg-gradient-to-br from-blue-500 to-blue-700 border-none rounded-2xl cursor-pointer text-white text-[15px] font-extrabold flex items-center justify-center gap-2 shadow-lg shadow-blue-200 hover:opacity-90 transition-opacity"
+          className="w-full py-3 mt-1.5 bg-gradient-to-br from-blue-500 to-blue-700 border-none rounded-xl cursor-pointer text-white text-[12px] font-extrabold flex items-center justify-center gap-1.5 shadow-lg shadow-blue-200 hover:opacity-90 transition-opacity"
         >
-          <Check size={18} strokeWidth={2.5} /> Save Changes
+          <Check size={14} strokeWidth={2.5} /> Save Changes
         </button>
       </div>
     </div>
@@ -135,9 +135,9 @@ function ProfileEditModal({ profile, onSave, onClose }) {
 
 // ─── Section Wrapper ──────────────────────────────────────────────────────────
 const Section = ({ title, children, borderColor = "border-slate-200" }) => (
-  <div className={`bg-white rounded-2xl px-4 py-1 border-[1.5px] ${borderColor} mb-4`}>
+  <div className={`bg-white rounded-xl px-3 py-1 border-[1.5px] ${borderColor} mb-3`}>
     {title && (
-      <div className="text-[11px] font-bold text-slate-400 tracking-[0.05em] uppercase pt-3.5 pb-1">
+      <div className="text-[9px] font-bold text-slate-400 tracking-[0.05em] uppercase pt-2.5 pb-0.5">
         {title}
       </div>
     )}
@@ -166,30 +166,30 @@ export default function SettingsScreen({ onLogout }) {
   };
 
   return (
-    <div className="font-[DM_Sans,sans-serif] px-4 pt-7 pb-6 min-h-screen bg-slate-50">
+    <div className="font-[DM_Sans,sans-serif] px-3 pt-5 pb-5 min-h-screen bg-slate-50">
 
-      <h1 className="text-[26px] font-black text-slate-900 mb-5">Settings</h1>
+      <h1 className="text-[21px] font-black text-slate-900 mb-4">Settings</h1>
 
       {/* ── Profile Card ── */}
-      <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-[22px] p-5 mb-6 flex items-center gap-4 text-white relative">
+      <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-[18px] p-4 mb-5 flex items-center gap-3 text-white relative">
         {/* Avatar */}
-        <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center text-xl font-black shrink-0">
+        <div className="w-11 h-11 rounded-full bg-white/20 flex items-center justify-center text-lg font-black shrink-0">
           {profile.initials}
         </div>
 
         {/* Info */}
         <div className="flex-1">
-          <div className="text-lg font-black">{profile.name}</div>
-          <div className="text-[13px] opacity-80">{profile.email}</div>
-          <div className="text-[11px] mt-1 opacity-70">{profile.role}</div>
+          <div className="text-base font-black">{profile.name}</div>
+          <div className="text-[10.5px] opacity-80">{profile.email}</div>
+          <div className="text-[9px] mt-1 opacity-70">{profile.role}</div>
         </div>
 
         {/* Edit Button */}
         <button
           onClick={() => setShowEdit(true)}
-          className="bg-white/20 border border-white/30 rounded-xl w-9 h-9 flex items-center justify-center cursor-pointer text-white shrink-0 hover:bg-white/30 transition-colors"
+          className="bg-white/20 border border-white/30 rounded-lg w-7 h-7 flex items-center justify-center cursor-pointer text-white shrink-0 hover:bg-white/30 transition-colors"
         >
-          <Pencil size={16} strokeWidth={2.5} />
+          <Pencil size={13} strokeWidth={2.5} />
         </button>
       </div>
 

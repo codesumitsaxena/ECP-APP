@@ -6,15 +6,15 @@ export default function ECGBackground() {
         position: "absolute", top: "50%", left: 0, width: "100%",
         transform: "translateY(-50%)", opacity: 0.13, pointerEvents: "none",
       }}
-      viewBox="0 0 1320 80" preserveAspectRatio="none"
+      viewBox="0 0 1320 64" preserveAspectRatio="none"
     >
       <style>{`
         @keyframes ecgDraw { 0% { stroke-dashoffset: 2000; } 100% { stroke-dashoffset: 0; } }
         .ecg-line { stroke-dasharray: 2000; stroke-dashoffset: 2000; animation: ecgDraw 3s ease-out forwards; }
       `}</style>
-      <polyline className="ecg-line" fill="none" stroke="#3B82F6" strokeWidth="2.2"
+      <polyline className="ecg-line" fill="none" stroke="#3B82F6" strokeWidth="1.8"
         strokeLinejoin="round" strokeLinecap="round"
-        points="0,40 60,40 75,40 82,8 88,72 94,12 100,58 115,40 240,40 255,40 262,6 268,74 274,10 280,56 295,40 420,40 435,40 442,7 448,73 454,11 460,55 475,40 600,40 615,40 622,5 628,75 634,9 640,57 655,40 780,40 795,40 802,8 808,72 814,12 820,56 835,40 960,40 975,40 982,6 988,74 994,10 1000,55 1015,40 1140,40 1155,40 1162,8 1168,72 1174,12 1180,56 1195,40 1320,40"
+        points="0,32 60,32 75,32 82,6 88,58 94,10 100,46 115,32 240,32 255,32 262,5 268,59 274,8 280,45 295,32 420,32 435,32 442,5 448,58 454,9 460,44 475,32 600,32 615,32 622,4 628,60 634,7 640,46 655,32 780,32 795,32 802,6 808,58 814,10 820,45 835,32 960,32 975,32 982,5 988,59 994,8 1000,44 1015,32 1140,32 1155,32 1162,6 1168,58 1174,10 1180,45 1195,32 1320,32"
       />
     </svg>
   );
